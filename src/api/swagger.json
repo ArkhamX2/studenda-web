@@ -1,0 +1,3946 @@
+{
+    "openapi": "3.0.4",
+    "info": {
+        "title": "Studenda.Server",
+        "version": "1.0"
+    },
+    "paths": {
+        "/journal/absence": {
+            "get": {
+                "tags": [
+                    "Absence"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Absence"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Absence"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Absence"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Absence"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Absence"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Absence"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Absence"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Absence"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/journal/absence/account": {
+            "get": {
+                "tags": [
+                    "Absence"
+                ],
+                "parameters": [
+                    {
+                        "name": "accountId",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "sessionIds",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Absence"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Absence"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Absence"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/journal/absence/session": {
+            "get": {
+                "tags": [
+                    "Absence"
+                ],
+                "parameters": [
+                    {
+                        "name": "accountIds",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    },
+                    {
+                        "name": "sessionId",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Absence"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Absence"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Absence"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/security/account": {
+            "get": {
+                "tags": [
+                    "Account"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Account"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Account"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Account"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Account"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Account"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Account"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Account"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Account"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/security/account/group": {
+            "get": {
+                "tags": [
+                    "Account"
+                ],
+                "parameters": [
+                    {
+                        "name": "groupIds",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Account"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Account"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Account"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/security/account/role": {
+            "get": {
+                "tags": [
+                    "Account"
+                ],
+                "parameters": [
+                    {
+                        "name": "roleIds",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Account"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Account"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Account"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/course": {
+            "get": {
+                "tags": [
+                    "Course"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Course"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Course"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Course"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Course"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Course"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Course"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Course"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Course"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/schedule/day-position": {
+            "get": {
+                "tags": [
+                    "DayPosition"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DayPosition"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DayPosition"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DayPosition"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "DayPosition"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/DayPosition"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/DayPosition"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/DayPosition"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "DayPosition"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/department": {
+            "get": {
+                "tags": [
+                    "Department"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Department"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Department"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Department"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Department"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Department"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Department"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Department"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Department"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/schedule/discipline": {
+            "get": {
+                "tags": [
+                    "Discipline"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Discipline"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Discipline"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Discipline"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Discipline"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Discipline"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Discipline"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Discipline"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Discipline"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/group": {
+            "get": {
+                "tags": [
+                    "Group"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Group"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Group"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Group"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Group"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Group"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Group"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Group"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Group"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/journal/mark-type": {
+            "get": {
+                "tags": [
+                    "MarkType"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/MarkType"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/MarkType"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/MarkType"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "MarkType"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/MarkType"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/MarkType"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/MarkType"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "MarkType"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/security/role": {
+            "get": {
+                "tags": [
+                    "Role"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Role"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Role"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Role"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Role"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Role"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/security/role/default": {
+            "get": {
+                "tags": [
+                    "Role"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/security/role/account": {
+            "get": {
+                "tags": [
+                    "Role"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/security/role/permission": {
+            "get": {
+                "tags": [
+                    "Role"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/security": {
+            "get": {
+                "tags": [
+                    "Security"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Account"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Account"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Account"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/security/login": {
+            "post": {
+                "tags": [
+                    "Security"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SecurityResponse"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SecurityResponse"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SecurityResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/security/register": {
+            "post": {
+                "tags": [
+                    "Security"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SecurityResponse"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SecurityResponse"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SecurityResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/security/user": {
+            "post": {
+                "tags": [
+                    "Security"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SecurityResponse"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SecurityResponse"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SecurityResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/security/token": {
+            "post": {
+                "tags": [
+                    "Security"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/journal/session": {
+            "get": {
+                "tags": [
+                    "Session"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Session"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Session"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Session"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Session"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Session"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Session"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Session"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Session"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/journal/session/subject": {
+            "get": {
+                "tags": [
+                    "Session"
+                ],
+                "parameters": [
+                    {
+                        "name": "subjectId",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "dates",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "format": "date-time"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Session"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Session"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Session"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/journal/session/date": {
+            "get": {
+                "tags": [
+                    "Session"
+                ],
+                "parameters": [
+                    {
+                        "name": "subjectIds",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Session"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Session"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Session"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/schedule/subject": {
+            "get": {
+                "tags": [
+                    "Subject"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Subject"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Subject"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Subject"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Subject"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Subject"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Subject"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Subject"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Subject"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/schedule/subject/group": {
+            "get": {
+                "tags": [
+                    "Subject"
+                ],
+                "parameters": [
+                    {
+                        "name": "groupId",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "weekTypeId",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "year",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Subject"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Subject"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Subject"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/schedule/subject/account": {
+            "get": {
+                "tags": [
+                    "Subject"
+                ],
+                "parameters": [
+                    {
+                        "name": "accountId",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "weekTypeId",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "year",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Subject"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Subject"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Subject"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/schedule/subject-position": {
+            "get": {
+                "tags": [
+                    "SubjectPosition"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SubjectPosition"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SubjectPosition"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SubjectPosition"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "SubjectPosition"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/SubjectPosition"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/SubjectPosition"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/SubjectPosition"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "SubjectPosition"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/schedule/subject-type": {
+            "get": {
+                "tags": [
+                    "SubjectType"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SubjectType"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SubjectType"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SubjectType"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "SubjectType"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/SubjectType"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/SubjectType"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/SubjectType"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "SubjectType"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/journal/task": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Task"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Task"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Task"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Task"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Task"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Task"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Task"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Task"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/journal/task/issuer": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "parameters": [
+                    {
+                        "name": "issuerAccountId",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "groupIds",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    },
+                    {
+                        "name": "disciplineId",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "subjectTypeId",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "academicYear",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Task"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Task"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Task"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/journal/task/assignee": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "parameters": [
+                    {
+                        "name": "assigneeAccountIds",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    },
+                    {
+                        "name": "disciplineId",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "subjectTypeId",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "academicYear",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Task"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Task"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Task"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/schedule/week-type/current": {
+            "get": {
+                "tags": [
+                    "WeekType"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WeekType"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WeekType"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WeekType"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/schedule/week-type": {
+            "get": {
+                "tags": [
+                    "WeekType"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/WeekType"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/WeekType"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/WeekType"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "WeekType"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/WeekType"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/WeekType"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/WeekType"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "WeekType"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Absence": {
+                "required": [
+                    "accountId",
+                    "sessionId"
+                ],
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "accountId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "sessionId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "account": {
+                        "$ref": "#/components/schemas/Account"
+                    },
+                    "session": {
+                        "$ref": "#/components/schemas/Session"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Account": {
+                "required": [
+                    "email",
+                    "roleId"
+                ],
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "roleId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "groupId": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "identityId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "email": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "surname": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "role": {
+                        "$ref": "#/components/schemas/Role"
+                    },
+                    "group": {
+                        "$ref": "#/components/schemas/Group"
+                    },
+                    "subjects": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Subject"
+                        },
+                        "nullable": true
+                    },
+                    "subjectChanges": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SubjectChange"
+                        },
+                        "nullable": true
+                    },
+                    "disciplines": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Discipline"
+                        },
+                        "nullable": true
+                    },
+                    "absences": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Absence"
+                        },
+                        "nullable": true
+                    },
+                    "issuedTasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "nullable": true
+                    },
+                    "assignedTasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Course": {
+                "required": [
+                    "grade"
+                ],
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "grade": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "groups": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Group"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DayPosition": {
+                "required": [
+                    "index"
+                ],
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "index": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "staticSchedules": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Subject"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Department": {
+                "required": [
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "groups": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Group"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Discipline": {
+                "required": [
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "accountId": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "account": {
+                        "$ref": "#/components/schemas/Account"
+                    },
+                    "subjects": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Subject"
+                        },
+                        "nullable": true
+                    },
+                    "subjectChanges": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SubjectChange"
+                        },
+                        "nullable": true
+                    },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Group": {
+                "required": [
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "courseId": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "departmentId": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "course": {
+                        "$ref": "#/components/schemas/Course"
+                    },
+                    "department": {
+                        "$ref": "#/components/schemas/Department"
+                    },
+                    "accounts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Account"
+                        },
+                        "nullable": true
+                    },
+                    "staticSchedules": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Subject"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "LoginRequest": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "password": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MarkType": {
+                "required": [
+                    "maxValue",
+                    "minValue",
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "minValue": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "maxValue": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "RegisterRequest": {
+                "required": [
+                    "account",
+                    "email",
+                    "password"
+                ],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "password": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "account": {
+                        "$ref": "#/components/schemas/Account"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Role": {
+                "required": [
+                    "canRegister",
+                    "name",
+                    "permission",
+                    "tokenLifetimeSeconds"
+                ],
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "permission": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "tokenLifetimeSeconds": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "canRegister": {
+                        "type": "boolean"
+                    },
+                    "accounts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Account"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SecurityResponse": {
+                "required": [
+                    "account",
+                    "token"
+                ],
+                "type": "object",
+                "properties": {
+                    "account": {
+                        "$ref": "#/components/schemas/Account"
+                    },
+                    "token": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Session": {
+                "required": [
+                    "subjectId"
+                ],
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "subjectId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "startedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "subject": {
+                        "$ref": "#/components/schemas/Subject"
+                    },
+                    "absences": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Absence"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Subject": {
+                "required": [
+                    "academicYear"
+                ],
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "disciplineId": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "subjectPositionId": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "dayPositionId": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "weekTypeId": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "subjectTypeId": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "accountId": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "groupId": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "academicYear": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "classroom": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "discipline": {
+                        "$ref": "#/components/schemas/Discipline"
+                    },
+                    "subjectPosition": {
+                        "$ref": "#/components/schemas/SubjectPosition"
+                    },
+                    "dayPosition": {
+                        "$ref": "#/components/schemas/DayPosition"
+                    },
+                    "weekType": {
+                        "$ref": "#/components/schemas/WeekType"
+                    },
+                    "subjectType": {
+                        "$ref": "#/components/schemas/SubjectType"
+                    },
+                    "account": {
+                        "$ref": "#/components/schemas/Account"
+                    },
+                    "group": {
+                        "$ref": "#/components/schemas/Group"
+                    },
+                    "scheduleChanges": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SubjectChange"
+                        },
+                        "nullable": true
+                    },
+                    "absences": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Absence"
+                        },
+                        "nullable": true
+                    },
+                    "sessions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Session"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SubjectChange": {
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "staticScheduleId": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "disciplineId": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "subjectTypeId": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "accountId": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "classroom": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "subject": {
+                        "$ref": "#/components/schemas/Subject"
+                    },
+                    "discipline": {
+                        "$ref": "#/components/schemas/Discipline"
+                    },
+                    "subjectType": {
+                        "$ref": "#/components/schemas/SubjectType"
+                    },
+                    "account": {
+                        "$ref": "#/components/schemas/Account"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SubjectPosition": {
+                "required": [
+                    "index"
+                ],
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "index": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "startLabel": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "endLabel": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "staticSchedules": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Subject"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SubjectType": {
+                "required": [
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "subjects": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Subject"
+                        },
+                        "nullable": true
+                    },
+                    "subjectChanges": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SubjectChange"
+                        },
+                        "nullable": true
+                    },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Task": {
+                "required": [
+                    "assigneeAccountId",
+                    "disciplineId",
+                    "issuerAccountId",
+                    "markTypeId",
+                    "name",
+                    "subjectTypeId"
+                ],
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "disciplineId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "subjectTypeId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "issuerAccountId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "assigneeAccountId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "markTypeId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "mark": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "startedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "endedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "discipline": {
+                        "$ref": "#/components/schemas/Discipline"
+                    },
+                    "subjectType": {
+                        "$ref": "#/components/schemas/SubjectType"
+                    },
+                    "issuerAccount": {
+                        "$ref": "#/components/schemas/Account"
+                    },
+                    "assigneeAccount": {
+                        "$ref": "#/components/schemas/Account"
+                    },
+                    "markType": {
+                        "$ref": "#/components/schemas/MarkType"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "WeekType": {
+                "required": [
+                    "index"
+                ],
+                "type": "object",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "index": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "staticSchedules": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Subject"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            }
+        }
+    }
+}
