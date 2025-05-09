@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-import { login as apiLogin, validateToken } from "../../api/security";
+import { login as apiLogin, validateToken } from "../../api/security/common";
 import { useTokenManager } from "../../hooks/useTokenManager";
 import { useSettings } from "../SettingsProvider";
 

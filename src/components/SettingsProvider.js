@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { fetchSettings } from "../api/security";
+import { fetchSettings } from "../api/security/common";
 
 const SettingsContext = createContext();
 

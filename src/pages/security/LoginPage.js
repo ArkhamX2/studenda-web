@@ -10,11 +10,11 @@ const LoginPage = () => {
   const [error, setError] = useState("");
 
   if (loading) {
-    return <div className="loading">Loading...</div>; // Show loading animation
+    return <div className="loading">Loading...</div>;
   }
 
   if (isAuthenticated()) {
-    return <Navigate to="/" />; // Redirect authenticated users to the root
+    return <Navigate to="/" />;
   }
 
   const handleSubmit = async (e) => {

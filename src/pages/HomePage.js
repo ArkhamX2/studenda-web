@@ -6,7 +6,7 @@ const HomePage = () => {
   const { isAuthenticated, isAdmin, isTeacher, isStudent, loading } = useAuth();
 
   if (loading) {
-    return <div className="loading">Loading...</div>; // Show loading animation
+    return <div className="loading">Loading...</div>;
   }
 
   if (!isAuthenticated()) {
@@ -21,7 +21,11 @@ const HomePage = () => {
     return <Navigate to="/student" />;
   }
 
-  return <Navigate to="/unauthorized" />;
+  return (
+    <div>
+      <p>ERROR</p>
+    </div>
+  );
 };
 
 export default HomePage;
