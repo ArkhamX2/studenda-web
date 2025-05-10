@@ -2,30 +2,33 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import { login as apiLogin, validateToken } from "../../api/security/common";
 import { useTokenManager } from "../../hooks/useTokenManager";
 import { useSettings } from "../SettingsProvider";
+import { useLoading } from "../LoadingProvider";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [authData, setAuthData] = useState({ account: null, token: null });
-  const [loading, setLoading] = useState(true);
   const { getToken, setToken, clearToken } = useTokenManager();
   const settings = useSettings();
+  const { startLoading, stopLoading } = useLoading();
 
   useEffect(() => {
     const validate = async () => {
+      startLoading();
+
       const token = getToken();
       if (token) {
         const response = await validateToken(token);
         if (response.success) {
           const data = response.data;
-
           setAuthData({ account: data.account, token: data.token });
         } else {
           clearToken();
           setAuthData({ account: null, token: null });
         }
       }
-      setLoading(false);
+
+      stopLoading();
     };
     validate();
   }, [getToken, clearToken]);
@@ -68,7 +71,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ authData, loading, login, logout, isAuthenticated, getAccount, getRole, getToken, isAdmin, isTeacher, isStudent }}>
+    <AuthContext.Provider value={{ authData, login, logout, isAuthenticated, getAccount, getRole, getToken, isAdmin, isTeacher, isStudent }}>
       {children}
     </AuthContext.Provider>
   );

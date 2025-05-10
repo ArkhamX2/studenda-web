@@ -19,7 +19,7 @@ export const getCourses = async (courseIds) => {
  * @returns
  */
 export const setCourses = async (courses) => {
-  return await requestAuthorized("/course?" + params, {
+  return await requestAuthorized("/course", {
     method: "POST",
     body: JSON.stringify(courses)
   });

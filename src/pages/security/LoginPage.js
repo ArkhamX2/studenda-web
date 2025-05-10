@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { useAuth } from "../../components/security/AuthProvider";
 import { useNavigate, Navigate } from "react-router-dom";
+import { useLoading } from "../../components/LoadingProvider";
+import { Container, TextField, Button, Typography, Box } from "@mui/material";
 
 const LoginPage = () => {
-  const { login, isAuthenticated, loading } = useAuth();
+  const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-  if (loading) {
-    return <div className="loading">Loading...</div>;
-  }
+  const { startLoading, stopLoading } = useLoading();
 
   if (isAuthenticated()) {
     return <Navigate to="/" />;
@@ -20,44 +19,53 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    startLoading();
     try {
       const result = await login(email, password);
       if (result.success) {
         navigate("/");
       } else {
-        setError(result.message);
+        setError("Login failed");
       }
     } catch (err) {
-      setError(err.message);
+      setError("An error occurred");
+    } finally {
+      stopLoading();
     }
   };
 
   return (
-    <div className="login-page">
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
+    <Container maxWidth="xs">
+      <Box sx={{ mt: 8 }}>
+        <Typography variant="h4" gutterBottom>
+          Login
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            label="Email"
             type="email"
+            fullWidth
+            margin="normal"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
+          <TextField
+            label="Password"
             type="password"
+            fullWidth
+            margin="normal"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </div>
-        {error && <p className="error">{error}</p>}
-        <button type="submit">Login</button>
-      </form>
-    </div>
+          {error && <Typography color="error">{error}</Typography>}
+          <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+            Login
+          </Button>
+        </form>
+      </Box>
+    </Container>
   );
 };
 

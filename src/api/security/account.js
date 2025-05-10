@@ -45,7 +45,7 @@ export const getAccountByRoles = async (roleIds) => {
  * @returns
  */
 export const setAccounts = async (accounts) => {
-  return await requestAuthorized("/security/account?" + params, {
+  return await requestAuthorized("/security/account", {
     method: "POST",
     body: JSON.stringify(accounts)
   });
