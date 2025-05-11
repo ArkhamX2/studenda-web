@@ -89,6 +89,18 @@ export const getGroups = async (groupIds) => {
   });
 };
 
+
+/**
+ * Получить группы по ID факультета
+ * @param {*} departmentId
+ * @returns
+ */
+export const getGroupsByDepartment = async (departmentId) => {
+  return await requestAuthorized("/group/department?departmentId=" + departmentId, {
+    method: "GET"
+  });
+}
+
 /**
  * Создать или обновить группы
  * @param {*} groups

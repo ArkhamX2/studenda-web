@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Container, Typography, List, ListItem, Card, CardActionArea, CardContent, Button } from "@mui/material";
+import { Container, Typography, List, Button } from "@mui/material";
 import { useLoading } from "../LoadingProvider";
 
-const EntityListPage = ({ title, fetchEntities }) => {
+const EntityListPage = ({ title, fetchEntities, ListItemComponent, onCreate }) => {
   const [entities, setEntities] = useState([]);
   const { startLoading, stopLoading } = useLoading();
 
@@ -10,22 +10,22 @@ const EntityListPage = ({ title, fetchEntities }) => {
     const fetchData = async () => {
       startLoading();
       const response = await fetchEntities();
-      stopLoading();
       if (response.success) {
         setEntities(response.data);
       } else {
         console.error(`Failed to fetch ${title}`);
       }
+      stopLoading();
     };
     fetchData();
-  }, [fetchEntities, startLoading, stopLoading, title]);
-
-  const handleDelete = (id) => {
-    console.log(`Delete entity with id: ${id}`);
-  };
+  }, [fetchEntities]);
 
   const handleAdd = () => {
-    console.log("Add new entity");
+    if (onCreate) {
+      onCreate();
+    } else {
+      console.log("Add new entity");
+    }
   };
 
   return (
@@ -38,18 +38,7 @@ const EntityListPage = ({ title, fetchEntities }) => {
       </Button>
       <List>
         {entities.map((entity) => (
-          <ListItem key={entity.id} disablePadding>
-            <Card sx={{ width: "100%" }}>
-              <CardActionArea>
-                <CardContent>
-                  <Typography variant="h6">{entity.name}</Typography>
-                </CardContent>
-              </CardActionArea>
-              <Button color="error" onClick={() => handleDelete(entity.id)}>
-                Удалить
-              </Button>
-            </Card>
-          </ListItem>
+          <ListItemComponent entity={entity} />
         ))}
       </List>
     </Container>

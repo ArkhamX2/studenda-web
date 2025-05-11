@@ -40,7 +40,17 @@ export const request = async (url, options = {}) => {
 };
 
 export const requestAuthorized = async (url, options = {}) => {
-  const token = localStorage.getItem("jwtToken") || '';
+  var token = "";
+  const storedData = localStorage.getItem("security");
+  if (storedData) {
+    try {
+      const { token: storedToken } = JSON.parse(storedData);
+      token = storedToken;
+    } catch (error) {
+      console.error("Error parsing token from localStorage:", error);
+    }
+  }
+
   const headers = prepareHeaders(options.headers, token);
 
   return sendRequest(url, options, headers);

@@ -31,6 +31,24 @@ const AdminLayout = () => {
             <ListItem button component={Link} to="/admin/group">
               <ListItemText primary="Группы" />
             </ListItem>
+            <ListItem button component={Link} to="/admin/discipline">
+              <ListItemText primary="Учебные дисциплины" />
+            </ListItem>
+            <ListItem button component={Link} to="/admin/subject-position">
+              <ListItemText primary="Позиции учебных предметов" />
+            </ListItem>
+            <ListItem button component={Link} to="/admin/week-type">
+              <ListItemText primary="Типы учебных недель" />
+            </ListItem>
+            <ListItem button component={Link} to="/admin/subject-type">
+              <ListItemText primary="Типы учебных предметов" />
+            </ListItem>
+            <ListItem button component={Link} to="/admin/day-position">
+              <ListItemText primary="Позиции учебного дня" />
+            </ListItem>
+            <ListItem button component={Link} to="/admin/subject">
+              <ListItemText primary="Занятия" />
+            </ListItem>
           </List>
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

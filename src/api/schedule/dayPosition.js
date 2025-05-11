@@ -19,7 +19,7 @@ export const getDayPositions = async (positionIds) => {
  * @returns
  */
 export const setDayPositions = async (positions) => {
-  return await requestAuthorized("/security/day-position?" + params, {
+  return await requestAuthorized("/schedule/day-position", {
     method: "POST",
     body: JSON.stringify(positions)
   });
@@ -33,7 +33,7 @@ export const setDayPositions = async (positions) => {
 export const deleteDayPositions = async (positionIds) => {
   const params = positionIds.map((id) => `ids=${id}`).join("&");
 
-  return await requestAuthorized("/security/day-position?" + params, {
+  return await requestAuthorized("/schedule/day-position?" + params, {
     method: "DELETE"
   });
 }
