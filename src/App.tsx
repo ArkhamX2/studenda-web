@@ -8,6 +8,9 @@ import LoginPage from "./pages/security/LoginPage";
 import TeacherPage from "./pages/teacher/TeacherPage";
 import StudentPage from "./pages/student/StudentPage";
 import AccountListPage from "./pages/admin/security/AccountListPage";
+import AdminAccountListPage from "./pages/admin/security/AdminAccountListPage";
+import TeacherAccountListPage from "./pages/admin/security/TeacherAccountListPage";
+import StudentAccountListPage from "./pages/admin/security/StudentAccountListPage";
 import CourseListPage from "./pages/admin/common/CourseListPage";
 import GroupListPage from "./pages/admin/common/GroupListPage";
 import AdminLayout from "./pages/admin/AdminLayout";
@@ -26,6 +29,7 @@ import EditSubjectTypePage from "./pages/admin/schedule/edit/EditSubjectTypePage
 import EditWeekTypePage from "./pages/admin/schedule/edit/EditWeekTypePage";
 import EditSubjectPositionPage from "./pages/admin/schedule/edit/EditSubjectPositionPage";
 import SubjectListPage from "./pages/admin/schedule/SubjectListPage";
+import EditAccountPage from "./pages/admin/security/edit/EditAccountPage";
 
 const theme = createTheme({
   palette: {
@@ -50,6 +54,8 @@ const App: React.FC = () => {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/admin" element={<AdminLayout />}>
                 <Route path="user" element={<AccountListPage />} />
+                <Route path="user/edit" element={<EditAccountPage />} />
+                <Route path="user/edit/:id" element={<EditAccountPage />} />
                 <Route path="course" element={<CourseListPage />} />
                 <Route path="course/edit" element={<EditCoursePage />} />
                 <Route path="course/edit/:id" element={<EditCoursePage />} />
@@ -75,6 +81,9 @@ const App: React.FC = () => {
                 <Route path="day-position/edit" element={<EditDayPositionPage />} />
                 <Route path="day-position/edit/:id" element={<EditDayPositionPage />} />
                 <Route path="subject" element={<SubjectListPage />} />
+                <Route path="admin-accounts" element={<AdminAccountListPage />} />
+                <Route path="teacher-accounts" element={<TeacherAccountListPage />} />
+                <Route path="student-accounts" element={<StudentAccountListPage />} />
               </Route>
               <Route path="/teacher" element={<TeacherPage />} />
               <Route path="/student" element={<StudentPage />} />

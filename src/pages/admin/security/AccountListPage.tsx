@@ -3,9 +3,12 @@ import { getAccounts, deleteAccounts } from "../../../api/security/account";
 import EntityListPage from "../../../components/admin/EntityListPage";
 import EntityListItem from "../../../components/admin/EntityListItem";
 import { Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { Account } from "../../../types/security";
 
 const AccountListPage: React.FC = () => {
+  const navigate = useNavigate();
+
   const renderContent = (entity: Account) => (
     <>
       <Typography variant="h6">{`${entity.surname} ${entity.name} ${entity.patronymic || ""}`}</Typography>
@@ -22,7 +25,7 @@ const AccountListPage: React.FC = () => {
       entity={entity}
       onRender={renderContent}
       onDelete={handleDelete}
-      onEdit={(entity: Account) => console.log(`Edit account`, entity)}
+      onEdit={(entity: Account) => navigate(`/admin/user/edit/${entity.id}`)}
     />
   );
 
@@ -31,7 +34,7 @@ const AccountListPage: React.FC = () => {
       title="Пользователи"
       fetchEntities={() => getAccounts([])}
       ListItemComponent={AccountCard}
-      onCreate={() => console.log("Create new account")}
+      onCreate={() => navigate("/admin/user/edit")}
     />
   );
 };

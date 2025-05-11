@@ -22,6 +22,15 @@ const AdminLayout: React.FC = () => {
             <ListItem button="true" component={Link as React.ElementType} to="/admin/user">
               <ListItemText primary="Пользователи" />
             </ListItem>
+            <ListItem button="true" component={Link as React.ElementType} to="/admin/admin-accounts">
+              <ListItemText primary="Администраторы" />
+            </ListItem>
+            <ListItem button="true" component={Link as React.ElementType} to="/admin/teacher-accounts">
+              <ListItemText primary="Преподаватели" />
+            </ListItem>
+            <ListItem button="true" component={Link as React.ElementType} to="/admin/student-accounts">
+              <ListItemText primary="Студенты" />
+            </ListItem>
             <ListItem button="true" component={Link as React.ElementType} to="/admin/course">
               <ListItemText primary="Курсы" />
             </ListItem>

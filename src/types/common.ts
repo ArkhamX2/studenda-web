@@ -3,7 +3,7 @@ export interface Entity {
 }
 
 export interface Identifiable extends Entity {
-  id: number | string;
+  id: number;
   createdAt?: string;
   updatedAt?: string | null;
 }

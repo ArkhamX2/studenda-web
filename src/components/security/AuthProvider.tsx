@@ -93,7 +93,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const isStudent = () => {
     const role = getRole();
-    return role?.permission === settings.studentPermission;
+    return role?.permission === settings.defaultPermission;
   };
 
   if (!initialized) {
