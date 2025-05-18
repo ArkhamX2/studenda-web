@@ -7,7 +7,7 @@ import { DayPosition } from "../../../../types/schedule";
 const EditDayPositionPage: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const navigate = useNavigate();
-  const [dayPosition, setDayPosition] = useState<DayPosition>({ id: 0, index: 0, name: "" });
+  const [dayPosition, setDayPosition] = useState<DayPosition>({ id: 0, index: 1, name: "" });
   const isNew = !id;
 
   useEffect(() => {
@@ -54,9 +54,13 @@ const EditDayPositionPage: React.FC = () => {
         label="Индекс"
         type="number"
         value={dayPosition.index}
-        onChange={(e) => handleChange("index", parseInt(e.target.value, 10))}
+        onChange={(e) => {
+          const val = Math.max(1, parseInt(e.target.value, 10) || 1);
+          handleChange("index", val);
+        }}
         fullWidth
         margin="normal"
+        inputProps={{ min: 1 }}
       />
       <TextField
         label="Название"

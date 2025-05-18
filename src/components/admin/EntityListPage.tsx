@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Typography, List, Button } from "@mui/material";
+import { Container, Typography, List, Button, Box } from "@mui/material";
 
 interface EntityListPageProps<T> {
   title: string;
@@ -38,16 +38,24 @@ function EntityListPage<T>({
 
   return (
     <Container>
-      <Typography variant="h4" gutterBottom>
-        {title}
-      </Typography>
-      <Button variant="contained" color="primary" sx={{ mb: 2 }} onClick={handleAdd}>
-        Создать
-      </Button>
-      <List>
-        {entities.map((entity, index) => (
-          <ListItemComponent key={index} entity={entity} />
-        ))}
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+        <Typography variant="h4" gutterBottom>
+          {title}
+        </Typography>
+        <Button variant="contained" color="primary" onClick={handleAdd}>
+          Создать
+        </Button>
+      </Box>
+      <List sx={{ gap: 1, display: 'flex', flexDirection: 'column' }}>
+        {entities.length === 0 ? (
+          <Typography color="textSecondary" align="center" sx={{ mt: 4 }}>
+            Нет данных для отображения
+          </Typography>
+        ) : (
+          entities.map((entity, index) => (
+            <ListItemComponent key={index} entity={entity} />
+          ))
+        )}
       </List>
     </Container>
   );

@@ -54,9 +54,13 @@ const EditWeekTypePage: React.FC = () => {
         label="Индекс"
         type="number"
         value={weekType.index}
-        onChange={(e) => handleChange("index", parseInt(e.target.value, 10))}
+        onChange={(e) => {
+          const val = Math.max(1, parseInt(e.target.value, 10) || 1);
+          handleChange("index", val);
+        }}
         fullWidth
         margin="normal"
+        inputProps={{ min: 1 }}
       />
       <TextField
         label="Название"

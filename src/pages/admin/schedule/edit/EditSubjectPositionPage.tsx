@@ -9,7 +9,7 @@ const EditSubjectPositionPage: React.FC = () => {
   const navigate = useNavigate();
   const [subjectPosition, setSubjectPositionState] = useState<SubjectPosition>({
     id: 0,
-    index: 0,
+    index: 1,
     startLabel: "",
     endLabel: "",
     name: "",
@@ -60,9 +60,13 @@ const EditSubjectPositionPage: React.FC = () => {
         label="Индекс"
         type="number"
         value={subjectPosition.index}
-        onChange={(e) => handleChange("index", parseInt(e.target.value, 10))}
+        onChange={(e) => {
+          const val = Math.max(1, parseInt(e.target.value, 10) || 1);
+          handleChange("index", val);
+        }}
         fullWidth
         margin="normal"
+        inputProps={{ min: 1 }}
       />
       <TextField
         label="Начальная метка"
@@ -70,6 +74,10 @@ const EditSubjectPositionPage: React.FC = () => {
         onChange={(e) => handleChange("startLabel", e.target.value)}
         fullWidth
         margin="normal"
+        placeholder="8:30"
+        inputProps={{ pattern: "^([01]?[0-9]|2[0-3]):[0-5][0-9]$" }}
+        error={!!subjectPosition.startLabel && !/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(subjectPosition.startLabel)}
+        helperText={subjectPosition.startLabel && !/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(subjectPosition.startLabel) ? "Введите время в формате ЧЧ:ММ" : ""}
       />
       <TextField
         label="Конечная метка"
@@ -77,6 +85,10 @@ const EditSubjectPositionPage: React.FC = () => {
         onChange={(e) => handleChange("endLabel", e.target.value)}
         fullWidth
         margin="normal"
+        placeholder="10:15"
+        inputProps={{ pattern: "^([01]?[0-9]|2[0-3]):[0-5][0-9]$" }}
+        error={!!subjectPosition.endLabel && !/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(subjectPosition.endLabel)}
+        helperText={subjectPosition.endLabel && !/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(subjectPosition.endLabel) ? "Введите время в формате ЧЧ:ММ" : ""}
       />
       <TextField
         label="Название"
