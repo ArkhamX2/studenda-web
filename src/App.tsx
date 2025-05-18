@@ -30,6 +30,10 @@ import EditWeekTypePage from "./pages/admin/schedule/edit/EditWeekTypePage";
 import EditSubjectPositionPage from "./pages/admin/schedule/edit/EditSubjectPositionPage";
 import SubjectListPage from "./pages/admin/schedule/SubjectListPage";
 import EditAccountPage from "./pages/admin/security/edit/EditAccountPage";
+import EditSubjectPage from './pages/admin/schedule/edit/EditSubjectPage';
+import ChangePasswordPage from "./pages/security/ChangePasswordPage";
+import RoleListPage from "./pages/admin/security/RoleListPage";
+import EditRolePage from "./pages/admin/security/edit/EditRolePage";
 
 const theme = createTheme({
   palette: {
@@ -84,9 +88,15 @@ const App: React.FC = () => {
                 <Route path="admin-accounts" element={<AdminAccountListPage />} />
                 <Route path="teacher-accounts" element={<TeacherAccountListPage />} />
                 <Route path="student-accounts" element={<StudentAccountListPage />} />
+                <Route path="schedule/subject/edit" element={<EditSubjectPage />} />
+                <Route path="schedule/subject/edit/:id" element={<EditSubjectPage />} />
+                <Route path="role" element={<RoleListPage />} />
+                <Route path="role/edit" element={<EditRolePage />} />
+                <Route path="role/edit/:id" element={<EditRolePage />} />
               </Route>
               <Route path="/teacher" element={<TeacherPage />} />
               <Route path="/student" element={<StudentPage />} />
+              <Route path="/change-password" element={<ChangePasswordPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Router>

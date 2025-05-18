@@ -23,6 +23,8 @@ export interface Account extends Identifiable {
   identityId: string | null;
   role: Role | null;
   group: Group | null;
+  parentEmail?: string;
+  mustChangePassword?: boolean;
 }
 
 export interface Role extends Identifiable {

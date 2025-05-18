@@ -5,14 +5,15 @@ import { useLoading } from "../../components/LoadingProvider";
 import { Container, TextField, Button, Typography, Box } from "@mui/material";
 
 const LoginPage: React.FC = () => {
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, getAccount } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
   const { startLoading, stopLoading } = useLoading();
+  const [mustChangePassword, setMustChangePassword] = useState(false);
 
-  if (isAuthenticated()) {
+  if (isAuthenticated() && !mustChangePassword) {
     return <Navigate to="/" />;
   }
 
@@ -23,7 +24,14 @@ const LoginPage: React.FC = () => {
     try {
       const result = await login(email, password);
       if (result.success) {
-        navigate("/");
+        // Получаем актуальный аккаунт через getAccount
+        const account = getAccount();
+        if (account && account.mustChangePassword) {
+          setMustChangePassword(true);
+          navigate("/change-password");
+        } else {
+          navigate("/");
+        }
       } else {
         setError("Login failed");
       }

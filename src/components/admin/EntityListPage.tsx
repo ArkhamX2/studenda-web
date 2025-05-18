@@ -42,7 +42,7 @@ function EntityListPage<T>({
         {title}
       </Typography>
       <Button variant="contained" color="primary" sx={{ mb: 2 }} onClick={handleAdd}>
-        Add
+        Создать
       </Button>
       <List>
         {entities.map((entity, index) => (

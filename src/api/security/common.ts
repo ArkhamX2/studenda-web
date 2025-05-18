@@ -51,3 +51,13 @@ export const validateToken = async (token: string): Promise<ApiResult<AuthRespon
     },
   });
 };
+
+/**
+ * Изменить пароль текущего авторизованного пользователя
+ */
+export const changePassword = async (password: string): Promise<ApiResult<AuthResponse>> => {
+  return await requestAuthorized("/security/password", {
+    method: "POST",
+    body: prepareBody({ password }),
+  });
+};

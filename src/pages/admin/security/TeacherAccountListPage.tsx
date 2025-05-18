@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getRoleByPermissions } from "../../../api/security/role";
-import { getAccounts, deleteAccounts } from "../../../api/security/account";
+import { getAccountByRoles, deleteAccounts } from "../../../api/security/account";
 import EntityListPage from "../../../components/admin/EntityListPage";
 import EntityListItem from "../../../components/admin/EntityListItem";
 import { Typography } from "@mui/material";
@@ -22,7 +22,7 @@ const TeacherAccountListPage: React.FC = () => {
           const teacherRoleId = roleResponse.data[0].id;
 
           // Fetch accounts by role ID
-          const accountsResponse = await getAccounts([teacherRoleId]);
+          const accountsResponse = await getAccountByRoles([teacherRoleId]);
           if (accountsResponse.success && accountsResponse.data) {
             setTeacherAccounts(accountsResponse.data);
           } else {

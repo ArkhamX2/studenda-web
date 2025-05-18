@@ -8,6 +8,7 @@ import { Account, Role } from "../../../../types/security";
 import { Group } from "../../../../types/common";
 import { useAuth } from "../../../../components/security/AuthProvider";
 import { ApiResult } from "../../../../utils/api";
+import { createUser } from "../../../../api/security/common";
 
 const EditAccountPage: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
@@ -25,9 +26,12 @@ const EditAccountPage: React.FC = () => {
     identityId: null,
     role: null,
     group: null,
+    parentEmail: "",
+    mustChangePassword: false,
   });
   const [roles, setRoles] = useState<Role[]>([]);
   const [groups, setGroups] = useState<Group[]>([]);
+  const [password, setPassword] = useState("");
   const isNew = !id;
 
   useEffect(() => {
@@ -64,8 +68,17 @@ const EditAccountPage: React.FC = () => {
       });
   };
 
-  const handleChange = (field: keyof Account, value: string | number | null) => {
+  const handleChange = (field: keyof Account, value: string | number | boolean | null) => {
     setAccount((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleRegisterUser = async () => {
+    try {
+      await createUser(account.email, password, account);
+      navigateToList();
+    } catch (error) {
+      console.error("Failed to register user:", error);
+    }
   };
 
   const navigateToList = () => {
@@ -75,7 +88,7 @@ const EditAccountPage: React.FC = () => {
   return (
     <Box sx={{ maxWidth: 600, margin: "0 auto", padding: 2 }}>
       <Typography variant="h4" gutterBottom>
-        {isNew ? "Создание аккаунта" : "Редактирование аккаунта"}
+        {isNew ? "Регистрация аккаунта" : "Редактирование аккаунта"}
       </Typography>
       <TextField
         label="Фамилия"
@@ -102,6 +115,23 @@ const EditAccountPage: React.FC = () => {
         label="Email"
         value={account.email}
         onChange={(e) => handleChange("email", e.target.value)}
+        fullWidth
+        margin="normal"
+      />
+      {isNew && (
+        <TextField
+          label="Пароль для пользователя"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
+      )}
+      <TextField
+        label="Email родителя"
+        value={account.parentEmail || ""}
+        onChange={(e) => handleChange("parentEmail", e.target.value)}
         fullWidth
         margin="normal"
       />
@@ -135,12 +165,37 @@ const EditAccountPage: React.FC = () => {
         ))}
       </TextField>
       <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: 2 }}>
-        <Button variant="contained" color="primary" onClick={handleSave}>
-          Сохранить
-        </Button>
-        <Button variant="outlined" color="secondary" onClick={() => navigateToList()}>
-          Назад
-        </Button>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <input
+            type="checkbox"
+            id="mustChangePassword"
+            checked={!!account.mustChangePassword}
+            onChange={(e) => handleChange("mustChangePassword", e.target.checked)}
+            style={{ marginRight: 8 }}
+          />
+          <label htmlFor="mustChangePassword">Требовать смену пароля при входе</label>
+        </Box>
+        <Box>
+          {!isNew && (
+            <Button variant="contained" color="primary" onClick={handleSave}>
+              Сохранить
+            </Button>
+          )}
+          {isNew && (
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleRegisterUser}
+              sx={{ ml: 2 }}
+              disabled={!account.email || !password}
+            >
+              Сохранить
+            </Button>
+          )}
+          <Button variant="outlined" color="secondary" onClick={() => navigateToList()} sx={{ ml: 2 }}>
+            Назад
+          </Button>
+        </Box>
       </Box>
     </Box>
   );

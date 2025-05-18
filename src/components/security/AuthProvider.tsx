@@ -21,9 +21,10 @@ interface AuthContextProps {
   isAdmin: () => boolean;
   isTeacher: () => boolean;
   isStudent: () => boolean;
+  setAuthData: React.Dispatch<React.SetStateAction<AuthData>>;
 }
 
-const AuthContext = createContext<AuthContextProps | undefined>(undefined);
+export const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -102,7 +103,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ authData, login, logout, isAuthenticated, getAccount, getRole, getToken, isAdmin, isTeacher, isStudent }}
+      value={{ authData, login, logout, isAuthenticated, getAccount, getRole, getToken, isAdmin, isTeacher, isStudent, setAuthData }}
     >
       {children}
     </AuthContext.Provider>

@@ -58,6 +58,9 @@ const AdminLayout: React.FC = () => {
             <ListItem button="true" component={Link as React.ElementType} to="/admin/subject">
               <ListItemText primary="Занятия" />
             </ListItem>
+            <ListItem button="true" component={Link as React.ElementType} to="/admin/role">
+              <ListItemText primary="Роли" />
+            </ListItem>
           </List>
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

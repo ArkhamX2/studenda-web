@@ -4,7 +4,7 @@ import { useAuth } from "../components/security/AuthProvider";
 import { useLoading } from "../components/LoadingProvider";
 
 const HomePage: React.FC = () => {
-  const { isAuthenticated, isAdmin, isTeacher, isStudent } = useAuth();
+  const { isAuthenticated, isAdmin, isTeacher, isStudent, getAccount } = useAuth();
   const { loading } = useLoading();
 
   if (loading) {
@@ -13,6 +13,12 @@ const HomePage: React.FC = () => {
 
   if (!isAuthenticated()) {
     return <Navigate to="/login" />;
+  }
+
+  // Проверка mustChangePassword
+  const account = getAccount();
+  if (account?.mustChangePassword) {
+    return <Navigate to="/change-password" replace />;
   }
 
   if (isAdmin()) {
