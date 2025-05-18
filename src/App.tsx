@@ -34,6 +34,8 @@ import EditSubjectPage from './pages/admin/schedule/edit/EditSubjectPage';
 import ChangePasswordPage from "./pages/security/ChangePasswordPage";
 import RoleListPage from "./pages/admin/security/RoleListPage";
 import EditRolePage from "./pages/admin/security/edit/EditRolePage";
+import StudentAccountPage from "./pages/student/StudentAccountPage";
+import TeacherAccountPage from "./pages/teacher/TeacherAccountPage";
 
 const theme = createTheme({
   palette: {
@@ -96,6 +98,8 @@ const App: React.FC = () => {
               </Route>
               <Route path="/teacher" element={<TeacherPage />} />
               <Route path="/student" element={<StudentPage />} />
+              <Route path="/student/account" element={<StudentAccountPage />} />
+              <Route path="/teacher/account" element={<TeacherAccountPage />} />
               <Route path="/change-password" element={<ChangePasswordPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

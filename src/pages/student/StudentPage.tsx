@@ -1,11 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import RequireStudent from "../../components/security/require/RequireStudent";
+import UserHeader, { useUserHeaderConfig } from "../../components/common/UserHeader";
+import { Box } from "@mui/material";
 
 const StudentPage: React.FC = () => {
+  const { accountPath, menuLinks } = useUserHeaderConfig("student");
+
   return (
     <RequireStudent>
-      <div>
+      <UserHeader
+        title="Студент"
+        accountPath={accountPath}
+        menuLinks={menuLinks}
+      />
+      <Box sx={{ p: { xs: 1, md: 3 }, maxWidth: 900, margin: "0 auto" }}>
         <h1>Welcome, Student</h1>
         <p>This is the student dashboard.</p>
         <div className="schedule">
@@ -17,7 +26,7 @@ const StudentPage: React.FC = () => {
             <button>Go to General Journal</button>
           </Link>
         </div>
-      </div>
+      </Box>
     </RequireStudent>
   );
 };
