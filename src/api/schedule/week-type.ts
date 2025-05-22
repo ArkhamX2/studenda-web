@@ -2,6 +2,15 @@ import { requestAuthorized, prepareBody, ApiResult } from "../../utils/api";
 import { WeekType } from "../../types/schedule";
 
 /**
+ * Получить текущий тип учебной недели
+ */
+export const getCurrentWeekType = async (): Promise<ApiResult<WeekType>> => {
+  return await requestAuthorized("/schedule/week-type/current", {
+    method: "GET",
+  });
+};
+
+/**
  * Получить типы учебных недель
  */
 export const getWeekTypes = async (typeIds: number[]): Promise<ApiResult<WeekType[]>> => {

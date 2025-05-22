@@ -1,31 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import RequireStudent from "../../components/security/require/RequireStudent";
 import UserHeader, { useUserHeaderConfig } from "../../components/common/UserHeader";
-import { Box } from "@mui/material";
+import { Box, Typography, Paper, Avatar, Button } from "@mui/material";
+import { useAuth } from "../../components/security/AuthProvider";
+import { getCurrentWeekType } from "../../api/schedule/week-type";
+import { useSettings } from "../../components/SettingsProvider";
+import SchoolIcon from '@mui/icons-material/School';
+import TodaySchedule from "../../components/common/TodaySchedule";
+
+const getGreeting = (name: string) => {
+  const hour = new Date().getHours();
+  if (hour < 5) return `Доброй ночи, ${name}`;
+  if (hour < 12) return `Доброе утро, ${name}`;
+  if (hour < 18) return `Добрый день, ${name}`;
+  return `Добрый вечер, ${name}`;
+};
 
 const StudentPage: React.FC = () => {
   const { accountPath, menuLinks } = useUserHeaderConfig("student");
+  const { getAccount } = useAuth();
+  const account = getAccount();
+  const [weekType, setWeekType] = useState<any>(null);
+  const settings = useSettings();
+
+  useEffect(() => {
+    getCurrentWeekType().then((resp) => {
+      setWeekType(resp.data || null);
+    });
+  }, []);
 
   return (
     <RequireStudent>
-      <UserHeader
-        title="Студент"
-        accountPath={accountPath}
-        menuLinks={menuLinks}
-      />
-      <Box sx={{ p: { xs: 1, md: 3 }, maxWidth: 900, margin: "0 auto" }}>
-        <h1>Welcome, Student</h1>
-        <p>This is the student dashboard.</p>
-        <div className="schedule">
-          <h2>Weekly Schedule</h2>
-          <p>Schedule will be displayed here.</p>
-        </div>
-        <div className="button-group">
+      <UserHeader title="Сегодня" accountPath={accountPath} menuLinks={menuLinks} />
+      <Box sx={{ maxWidth: 600, margin: "0 auto", pt: 4 }}>
+        <Paper elevation={3} sx={{ p: 3, mb: 4, borderRadius: 4, display: 'flex', alignItems: 'center', gap: 2, background: '#fff' }}>
+          <Avatar sx={{ bgcolor: 'primary.main', width: 56, height: 56 }}>
+            <SchoolIcon fontSize="large" sx={{ color: '#fff' }} />
+          </Avatar>
+          <Box>
+            <Typography variant="h5" fontWeight={700} color="text.primary">
+              {getGreeting(account?.name || "Студент")}
+            </Typography>
+            <Typography variant="subtitle1" color="text.secondary">
+              {settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime).toLocaleDateString() : new Date().toLocaleDateString()} • {weekType?.name || '-'} неделя
+            </Typography>
+          </Box>
+        </Paper>
+        {account?.groupId && weekType && (
+          <TodaySchedule
+            mode="student"
+            groupId={account.groupId}
+            weekTypeId={weekType.id}
+            year={settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime).getFullYear() : new Date().getFullYear()}
+            userName={account.name}
+            date={settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime) : new Date()}
+          />
+        )}
+        <Box sx={{ mt: 4, textAlign: 'center' }}>
           <Link to="/journal">
-            <button>Go to General Journal</button>
+            <Button variant="contained">Перейти в общий журнал</Button>
           </Link>
-        </div>
+        </Box>
       </Box>
     </RequireStudent>
   );

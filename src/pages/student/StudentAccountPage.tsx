@@ -9,7 +9,7 @@ const StudentAccountPage: React.FC = () => {
   return (
     <>
       <UserHeader
-        title="Аккаунт студента"
+        title="Аккаунт"
         accountPath={accountPath}
         menuLinks={menuLinks}
       />
