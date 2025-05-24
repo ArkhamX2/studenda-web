@@ -50,14 +50,16 @@ const StudentPage: React.FC = () => {
           </Paper>
           {/* Lessons List */}
           {account?.groupId && weekType && (
-            <TodaySchedule
-              mode="student"
-              groupId={account.groupId}
-              userName={account.name}
-              weekTypeId={weekType.id}
-              date={settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime) : new Date()}
-              year={settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime).getFullYear() : new Date().getFullYear()}
-            />
+            <>
+              <TodaySchedule
+                mode="student"
+                groupId={account.groupId}
+                userName={account.name}
+                weekTypeId={weekType.id}
+                date={settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime) : new Date()}
+                year={settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime).getFullYear() : new Date().getFullYear()}
+              />
+            </>
           )}
         </Box>
       </Box>

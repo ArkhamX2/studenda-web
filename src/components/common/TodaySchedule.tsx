@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Fade, Card, CardContent, CardActions, Button, Avatar } from "@mui/material";
-import SchoolIcon from '@mui/icons-material/School';
+import { Box, Typography, Fade } from "@mui/material";
 import { getSubjectByAccount, getSubjectByGroup } from "../../api/schedule/subject";
 import { getDisciplines } from "../../api/schedule/discipline";
 import { getSubjectPositions } from "../../api/schedule/subject-position";
@@ -8,6 +7,7 @@ import { getDayPositions } from "../../api/schedule/dayPosition";
 import { getSubjectTypes } from "../../api/schedule/subject-type";
 import { useNavigate } from "react-router-dom";
 import { getAccounts } from '../../api/security/account';
+import ScheduleCardList from "./ScheduleCardList";
 
 interface TodayScheduleProps {
   mode: "teacher" | "student";
@@ -97,106 +97,16 @@ const TodaySchedule: React.FC<TodayScheduleProps> = ({ mode, accountId, groupId,
   const currentId = getCurrentSubjectId();
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-      {todaySubjects.length === 0 ? (
-        <Typography color="text.secondary">На сегодня занятий нет</Typography>
-      ) : (
-        sortedTodaySubjects.map((s: any) => {
-          const discipline = related.disciplines[s.disciplineId];
-          const subjectType = related.subjectTypes[s.subjectTypeId];
-          const subjectPosition = related.subjectPositions[s.subjectPositionId];
-          const isCurrent = s.id === currentId;
-          const expandedThis = isCurrent || expanded === s.id;
-          return (
-            <Fade in key={s.id}>
-              <Card
-                elevation={isCurrent ? 8 : 2}
-                sx={{
-                  border: isCurrent ? '2px solid #1976d2' : '1px solid #e0e0e0',
-                  bgcolor: isCurrent ? 'rgba(25, 118, 210, 0.07)' : '#fff',
-                  borderRadius: 3,
-                  minHeight: 80,
-                  transition: 'all 0.3s',
-                  cursor: isCurrent ? 'default' : 'pointer',
-                  boxShadow: isCurrent ? 8 : 2,
-                  position: 'relative',
-                  overflow: 'hidden',
-                }}
-                onClick={() => {
-                  if (!isCurrent) setExpanded(expanded === s.id ? null : s.id);
-                }}
-              >
-                <CardContent sx={{ pb: 1.5 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                    <Avatar sx={{ bgcolor: isCurrent ? 'primary.main' : 'grey.200', color: isCurrent ? '#fff' : 'grey.800', width: 40, height: 40 }}>
-                      <SchoolIcon />
-                    </Avatar>
-                    <Box>
-                      <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.5 }}>
-                        {subjectPosition ? `${subjectPosition.startLabel} - ${subjectPosition.endLabel}` : ''}
-                      </Typography>
-                      <Typography variant="h6" fontWeight={600} sx={{ mb: 0.5 }}>
-                        {discipline?.name || '—'} <span style={{ fontWeight: 400, color: '#888', fontSize: 16 }}>({subjectType?.name || '—'})</span>
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {s.classroom || '—'}
-                        {/* Показываем преподавателя только для студента: рядом с кабинетом через точку, через Fade при раскрытии */}
-                        {mode === 'student' && related.accounts && related.accounts[s.accountId] && (
-                          <Fade in={expandedThis} unmountOnExit>
-                            <span style={{ marginLeft: 8, color: '#888' }}>
-                              •&nbsp;&nbsp;{`${related.accounts[s.accountId].surname} ${related.accounts[s.accountId].name}${related.accounts[s.accountId].patronymic ? ` ${related.accounts[s.accountId].patronymic}` : ''}`}
-                            </span>
-                          </Fade>
-                        )}
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Fade in={expandedThis} unmountOnExit>
-                    <Box sx={{ mt: 2 }}>
-                      {discipline?.description && (
-                        <Typography variant="body2" color="text.secondary">
-                          {discipline.description}
-                        </Typography>
-                      )}
-                      {discipline?.description && s.description && (
-                        <Box sx={{ my: 1, borderBottom: '1px solid #eee' }} />
-                      )}
-                      {s.description && (
-                        <Typography variant="body2" color="text.secondary">
-                          {s.description}
-                        </Typography>
-                      )}
-                    </Box>
-                  </Fade>
-                </CardContent>
-                <CardActions sx={{ pt: 0, pb: 1, pl: 7, justifyContent: 'space-between' }}>
-                  {!isCurrent && (
-                    <Button size="small" onClick={e => { e.stopPropagation(); setExpanded(expanded === s.id ? null : s.id); }}>
-                      {expanded === s.id ? "Свернуть" : "Подробнее"}
-                    </Button>
-                  )}
-                  {mode === "teacher" && expandedThis && (
-                    <Button
-                      size="small"
-                      variant="contained"
-                      color="primary"
-                      sx={{ ml: 'auto' }}
-                      onClick={e => {
-                        e.stopPropagation();
-                        const dateStr = date.toISOString().slice(0, 10);
-                        navigate(`/teacher/journal/${s.id}?date=${dateStr}`);
-                      }}
-                    >
-                      Перейти в журнал
-                    </Button>
-                  )}
-                </CardActions>
-              </Card>
-            </Fade>
-          );
-        })
-      )}
-    </Box>
+    <ScheduleCardList
+      subjects={sortedTodaySubjects}
+      related={related}
+      expanded={expanded}
+      setExpanded={setExpanded}
+      currentId={currentId}
+      mode={mode}
+      date={date}
+      navigate={navigate}
+    />
   );
 };
 

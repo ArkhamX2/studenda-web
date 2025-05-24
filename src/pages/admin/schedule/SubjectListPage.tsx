@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
-  getSubjects,
-  getAllSubjectByGroup,
   getSubjectByGroup,
   deleteSubjects,
 } from "../../../api/schedule/subject";
@@ -33,7 +31,6 @@ import { Department, Group } from "../../../types/common";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import EditSubjectPage from './edit/EditSubjectPage';
 
 const SubjectListPage: React.FC = () => {
   const [filterYear, setFilterYear] = useState<number>(2025);
@@ -195,16 +192,10 @@ const SubjectListPage: React.FC = () => {
   }, [filterYear, filterGroup, filterDepartment, filterWeekType]);
 
   const handleFilter = () => {
-    if (filterGroup && filterYear) {
-      if (filterWeekType) {
-        getSubjectByGroup(parseInt(filterGroup, 10), parseInt(filterWeekType, 10), filterYear).then((response) => {
-          setSubjects(response.data || []);
-        });
-      } else {
-        getAllSubjectByGroup(parseInt(filterGroup, 10), filterYear).then((response) => {
-          setSubjects(response.data || []);
-        });
-      }
+    if (filterYear && filterWeekType && filterGroup) {
+      getSubjectByGroup(parseInt(filterGroup, 10), parseInt(filterWeekType, 10), filterYear).then((response) => {
+        setSubjects(response.data || []);
+      });
     }
   };
 

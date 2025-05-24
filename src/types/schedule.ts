@@ -39,3 +39,12 @@ export interface Subject extends Identifiable {
   classroom: string;
   description: string;
 }
+
+export interface SubjectChange extends Identifiable {
+  staticScheduleId: number | null;
+  disciplineId: number | null;
+  subjectTypeId: number | null;
+  accountId: number | null;
+  classroom: string | null;
+  description: string | null;
+}

@@ -1,10 +1,9 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Typography,
   Card,
   CardContent,
-  Button,
   IconButton,
   Paper,
   Avatar,
@@ -12,105 +11,84 @@ import {
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import SchoolIcon from '@mui/icons-material/School';
-import dayjs, { Dayjs } from "dayjs";
+import SchoolIcon from "@mui/icons-material/School";
+import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import weekOfYear from "dayjs/plugin/weekOfYear";
+import { useNavigate } from "react-router-dom";
 
+import { useSettings } from "../SettingsProvider";
+import { getDayPositions } from "../../api/schedule/dayPosition";
+import { getSubjectPositions } from "../../api/schedule/subject-position";
+import { getDisciplines } from "../../api/schedule/discipline";
+import { getSubjectTypes } from "../../api/schedule/subject-type";
+import { getWeekTypes } from "../../api/schedule/week-type";
+import { getSubjectByAccount, getSubjectByGroup } from "../../api/schedule/subject";
 import { DayPosition, SubjectPosition, Subject, Discipline, SubjectType, WeekType } from "../../types/schedule";
-
-// --- MOCK DATA GENERATION ---
-const mockDayPositions: DayPosition[] = [
-  { id: 1, index: 0, name: "Понедельник" },
-  { id: 2, index: 1, name: "Вторник" },
-  { id: 3, index: 2, name: "Среда" },
-  { id: 4, index: 3, name: "Четверг" },
-  { id: 5, index: 4, name: "Пятница" },
-  { id: 6, index: 5, name: "Суббота" },
-  { id: 7, index: 6, name: "Воскресенье" },
-];
-const mockSubjectPositions: SubjectPosition[] = [
-  { id: 1, index: 0, startLabel: "08:30", endLabel: "10:00", name: "1 пара" },
-  { id: 2, index: 1, startLabel: "10:10", endLabel: "11:40", name: "2 пара" },
-  { id: 3, index: 2, startLabel: "12:10", endLabel: "13:40", name: "3 пара" },
-  { id: 4, index: 3, startLabel: "13:50", endLabel: "15:20", name: "4 пара" },
-];
-const mockDisciplines: Discipline[] = [
-  { id: 1, accountId: 1, name: "Математика", description: "Высшая математика" },
-  { id: 2, accountId: 1, name: "Физика", description: "Общая физика" },
-  { id: 3, accountId: 1, name: "Информатика", description: "Программирование" },
-];
-const mockSubjectTypes: SubjectType[] = [
-  { id: 1, name: "Лекция" },
-  { id: 2, name: "Практика" },
-];
-const mockWeekTypes: WeekType[] = [
-  { id: 1, index: 0, name: "Чётная" },
-  { id: 2, index: 1, name: "Нечётная" },
-];
 
 dayjs.extend(weekOfYear);
 
-function getWeekTypeByDate(date: Dayjs) {
-  // Пример: чётная/нечётная неделя по номеру недели года
-  const weekNum = date.week();
-  return mockWeekTypes[weekNum % 2];
+function getWeekTypeByNumber(weekTypes: WeekType[], weekNum: number): WeekType | undefined {
+  if (!weekTypes.length) return undefined;
+  const sorted = weekTypes.slice().sort((a, b) => a.index - b.index);
+  const idx = (weekNum - 1) % sorted.length;
+  return sorted[idx];
 }
 
-function generateMockSubjects(weekTypeId: number, year: number): Subject[] {
-  // Для примера: рандомно заполняем расписание
-  const subjects: Subject[] = [];
-  for (const day of mockDayPositions) {
-    for (const pos of mockSubjectPositions) {
-      if (Math.random() > 0.5) {
-        subjects.push({
-          id: Math.floor(Math.random() * 100000),
-          disciplineId: mockDisciplines[Math.floor(Math.random() * mockDisciplines.length)].id,
-          subjectPositionId: pos.id,
-          dayPositionId: day.id,
-          weekTypeId,
-          subjectTypeId: mockSubjectTypes[Math.floor(Math.random() * mockSubjectTypes.length)].id,
-          accountId: 1,
-          groupId: 1,
-          academicYear: year,
-          classroom: `Ауд. ${Math.floor(Math.random() * 300 + 100)}`,
-          description: "Тема занятия, преподаватель, описание...",
-        });
-      }
-    }
-  }
-  return subjects;
-}
+const FullSchedule: React.FC<{ mode: 'teacher' | 'student', accountId?: number, groupId?: number }> = ({ mode, accountId, groupId }) => {
+  const settings = useSettings();
+  const [baseDate, setBaseDate] = useState(() =>
+    settings?.coordinatedUniversalTime ? dayjs(settings.coordinatedUniversalTime).startOf("week") : dayjs().startOf("week")
+  );
+  const navigate = useNavigate();
 
-const FullSchedule: React.FC = () => {
-  const [baseDate, setBaseDate] = useState(dayjs().startOf("week")); // начало недели (понедельник)
+  const [dayPositions, setDayPositions] = useState<DayPosition[]>([]);
+  const [subjectPositions, setSubjectPositions] = useState<SubjectPosition[]>([]);
+  const [disciplines, setDisciplines] = useState<Discipline[]>([]);
+  const [subjectTypes, setSubjectTypes] = useState<SubjectType[]>([]);
+  const [weekTypes, setWeekTypes] = useState<WeekType[]>([]);
+  const [subjects, setSubjects] = useState<Subject[]>([]);
 
-  // Определяем тип недели и год
-  const weekType = getWeekTypeByDate(baseDate);
+  const weekNum = baseDate.week();
   const year = baseDate.year();
+  const weekType = getWeekTypeByNumber(weekTypes, weekNum);
 
-  // Моки занятий на неделю
-  const subjects = useMemo(() => generateMockSubjects(weekType.id, year), [weekType.id, year, baseDate]);
+  useEffect(() => {
+    getDayPositions([]).then(resp => setDayPositions(resp.data || []));
+    getSubjectPositions([]).then(resp => setSubjectPositions(resp.data || []));
+    getDisciplines([]).then(resp => setDisciplines(resp.data || []));
+    getSubjectTypes([]).then(resp => setSubjectTypes(resp.data || []));
+    getWeekTypes([]).then(resp => setWeekTypes(resp.data || []));
+  }, []);
 
-  // Переключение недели
+  useEffect(() => {
+    if (!weekType) return setSubjects([]);
+    if (mode === 'teacher' && accountId) {
+      getSubjectByAccount(accountId, weekType.id, year).then(resp => setSubjects(resp.data || []));
+    } else if (mode === 'student' && groupId) {
+      getSubjectByGroup(groupId, weekType.id, year).then(resp => setSubjects(resp.data || []));
+    } else {
+      setSubjects([]);
+    }
+  }, [mode, accountId, groupId, weekType?.id, year]);
+
   const handlePrevWeek = () => setBaseDate(d => d.subtract(1, "week"));
   const handleNextWeek = () => setBaseDate(d => d.add(1, "week"));
 
-  // Для каждой позиции дня ищем занятие
   const getSubject = (dayId: number, posId: number) =>
-    subjects.find(s => s.dayPositionId === dayId && s.subjectPositionId === posId && s.weekTypeId === weekType.id);
+    weekType ? subjects.find(s => s.dayPositionId === dayId && s.subjectPositionId === posId && s.weekTypeId === weekType.id) : undefined;
 
-  // Сортируем дни и позиции занятий по индексу
-  const orderedDayPositions = mockDayPositions.slice().sort((a, b) => a.index - b.index);
-  const orderedSubjectPositions = mockSubjectPositions.slice().sort((a, b) => a.index - b.index);
+  const orderedDayPositions = dayPositions.slice().sort((a, b) => a.index - b.index);
+  const orderedSubjectPositions = subjectPositions.slice().sort((a, b) => a.index - b.index);
 
   return (
     <Box>
-      {/* Header: неделя, дата, навигация */}
       <Paper sx={{ display: 'flex', alignItems: 'center', p: 2, mb: 3, gap: 2, borderRadius: 3 }}>
         <IconButton onClick={handlePrevWeek}><ArrowBackIosNewIcon /></IconButton>
         <Box>
-          <Typography variant="h6" fontWeight={700}>Неделя {baseDate.week()} ({weekType.name})</Typography>
+          <Typography variant="h6" fontWeight={700}>
+            Неделя {baseDate.week()} ({weekType ? weekType.name : '—'})
+          </Typography>
           <Typography variant="body2" color="text.secondary">
             {baseDate.startOf('week').format('DD.MM.YYYY')} – {baseDate.endOf('week').format('DD.MM.YYYY')}
           </Typography>
@@ -121,16 +99,15 @@ const FullSchedule: React.FC = () => {
           <CalendarTodayIcon />
         </Avatar>
       </Paper>
-      {/* Сетка дней недели без Grid */}
       <Box sx={{
-  display: 'flex',
-  flexWrap: 'wrap',
-  gap: 2,
-  justifyContent: 'center',
-  maxWidth: 1280,
-  mx: 'auto', // центрируем страницу
-}}>
-        {orderedDayPositions.map((day, idx) => (
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 2,
+        justifyContent: 'center',
+        maxWidth: 1280,
+        mx: 'auto',
+      }}>
+        {orderedDayPositions.map((day) => (
           <Box
             key={day.id}
             sx={{
@@ -138,21 +115,44 @@ const FullSchedule: React.FC = () => {
               minWidth: 280,
               maxWidth: 400,
               mb: 2,
-              // Ограничиваем максимум 3 карточки в строке
               width: {
                 xs: '100%',
                 sm: 'calc(50% - 16px)',
                 md: 'calc(33.333% - 16px)'
               },
+              cursor: 'pointer',
+              borderRadius: 3,
+              boxShadow: 2,
+              background: '#fff',
+              transition: 'box-shadow 0.2s, background 0.2s, transform 0.1s',
+              '&:hover': {
+                boxShadow: 8,
+                transform: 'translateY(-2px) scale(1.02)',
+              },
+              '&:active': {
+                boxShadow: 4,
+                transform: 'scale(0.98)',
+              },
+              '& .ClickableCard': { pointerEvents: 'none' },
+            }}
+            onClick={() => {
+              const dateStr = baseDate.startOf('week').add(day.index, 'day').format('YYYY-MM-DD');
+              if (weekType && day.id && year) {
+                if (mode === 'student') {
+                  navigate(`/student/schedule/day/${dateStr}/${weekType.id}/${day.id}/${year}`);
+                } else {
+                  navigate(`/teacher/schedule/day/${dateStr}/${weekType.id}/${day.id}/${year}`);
+                }
+              }
             }}
           >
-            <Card sx={{ borderRadius: 3, minHeight: 220, display: 'flex', flexDirection: 'column', mb: 2 }}>
+            <Card className="ClickableCard" sx={{ borderRadius: 3, minHeight: 220, display: 'flex', flexDirection: 'column', mb: 2, boxShadow: 'none', background: 'transparent' }}>
               <CardContent>
-                <Typography variant="subtitle1" fontWeight={700} sx={{ mb: 1 }}>{day.name}</Typography>
+                <Typography variant="subtitle1" fontWeight={700} sx={{ mb: 1, letterSpacing: 0.5 }}>{day.name}</Typography>
                 {orderedSubjectPositions.map(pos => {
                   const subject = getSubject(day.id, pos.id);
-                  const discipline = subject && mockDisciplines.find(d => d.id === subject.disciplineId);
-                  const subjectType = subject && mockSubjectTypes.find(t => t.id === subject.subjectTypeId);
+                  const discipline = subject && disciplines.find(d => d.id === subject.disciplineId);
+                  const subjectType = subject && subjectTypes.find(t => t.id === subject.subjectTypeId);
                   return (
                     <Box key={pos.id} sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1, p: 1, borderRadius: 2, bgcolor: subject ? 'rgba(25,118,210,0.07)' : '#f5f5f5' }}>
                       <Avatar sx={{ width: 32, height: 32, bgcolor: subject ? 'primary.main' : 'grey.200', color: subject ? '#fff' : 'grey.700' }}>
