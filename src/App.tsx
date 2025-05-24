@@ -37,6 +37,7 @@ import EditRolePage from "./pages/admin/security/edit/EditRolePage";
 import StudentAccountPage from "./pages/student/StudentAccountPage";
 import TeacherAccountPage from "./pages/teacher/TeacherAccountPage";
 import TeacherSchedulePage from "./pages/teacher/TeacherSchedulePage";
+import StudentSchedulePage from "./pages/student/StudentSchedulePage";
 
 const theme = createTheme({
   palette: {
@@ -99,6 +100,7 @@ const App: React.FC = () => {
               </Route>
               <Route path="/teacher" element={<TeacherPage />} />
               <Route path="/teacher/schedule" element={<TeacherSchedulePage />} />
+              <Route path="/student/schedule" element={<StudentSchedulePage />} />
               <Route path="/student" element={<StudentPage />} />
               <Route path="/student/account" element={<StudentAccountPage />} />
               <Route path="/teacher/account" element={<TeacherAccountPage />} />

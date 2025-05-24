@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import RequireTeacher from "../../components/security/require/RequireTeacher";
 import UserHeader, { useUserHeaderConfig } from "../../components/common/UserHeader";
 import { Box, Typography, Paper, Avatar } from "@mui/material";
 import { useAuth } from "../../components/security/AuthProvider";
+import { getCurrentWeekType } from "../../api/schedule/week-type";
 import { useSettings } from "../../components/SettingsProvider";
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import TodaySchedule from "../../components/common/TodaySchedule";
@@ -19,7 +20,14 @@ const TeacherPage: React.FC = () => {
   const { accountPath, menuLinks } = useUserHeaderConfig("teacher");
   const { getAccount } = useAuth();
   const account = getAccount();
+  const [weekType, setWeekType] = useState<any>(null);
   const settings = useSettings();
+
+  useEffect(() => {
+    getCurrentWeekType().then((resp) => {
+      setWeekType(resp.data || null);
+    });
+  }, []);
 
   return (
     <RequireTeacher>
@@ -36,19 +44,19 @@ const TeacherPage: React.FC = () => {
                 {getGreeting(account?.name || "Преподаватель")}
               </Typography>
               <Typography variant="subtitle1" color="text.secondary">
-                {settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime).toLocaleDateString() : new Date().toLocaleDateString()}
+                {settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime).toLocaleDateString() : new Date().toLocaleDateString()} {weekType?.name ? `• ${weekType.name} неделя` : ''}
               </Typography>
             </Box>
           </Paper>
           {/* Lessons List */}
-          {account && (
+          {account && weekType && (
             <TodaySchedule
               mode="teacher"
               accountId={account.id}
               userName={account.name}
+              weekTypeId={weekType.id}
               date={settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime) : new Date()}
-              weekTypeId={settings?.weekTypeId || 1}
-              year={settings?.year || new Date().getFullYear()}
+              year={settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime).getFullYear() : new Date().getFullYear()}
             />
           )}
         </Box>

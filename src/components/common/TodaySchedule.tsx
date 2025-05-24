@@ -7,6 +7,7 @@ import { getSubjectPositions } from "../../api/schedule/subject-position";
 import { getDayPositions } from "../../api/schedule/dayPosition";
 import { getSubjectTypes } from "../../api/schedule/subject-type";
 import { useNavigate } from "react-router-dom";
+import { getAccounts } from '../../api/security/account';
 
 interface TodayScheduleProps {
   mode: "teacher" | "student";
@@ -42,17 +43,20 @@ const TodaySchedule: React.FC<TodayScheduleProps> = ({ mode, accountId, groupId,
         const subjectPositionIds = Array.from(new Set(subjects.map((s: any) => s.subjectPositionId)));
         const dayPositionIds = Array.from(new Set(subjects.map((s: any) => s.dayPositionId)));
         const subjectTypeIds = Array.from(new Set(subjects.map((s: any) => s.subjectTypeId)));
+        const accountIds = mode === 'student' ? Array.from(new Set(subjects.map((s: any) => s.accountId))) : [];
         Promise.all([
           getDisciplines(disciplineIds),
           getSubjectPositions(subjectPositionIds),
           getDayPositions(dayPositionIds),
           getSubjectTypes(subjectTypeIds),
-        ]).then(([disc, pos, day, type]) => {
+          accountIds.length > 0 ? getAccounts(accountIds) : Promise.resolve({ data: [] })
+        ]).then(([disc, pos, day, type, acc]) => {
           setRelated({
             disciplines: (disc.data || []).reduce((acc: any, d: any) => { acc[d.id] = d; return acc; }, {}),
             subjectPositions: (pos.data || []).reduce((acc: any, d: any) => { acc[d.id] = d; return acc; }, {}),
             dayPositions: (day.data || []).reduce((acc: any, d: any) => { acc[d.id] = d; return acc; }, {}),
             subjectTypes: (type.data || []).reduce((acc: any, d: any) => { acc[d.id] = d; return acc; }, {}),
+            accounts: (acc.data || []).reduce((acc: any, a: any) => { acc[a.id] = a; return acc; }, {}),
           });
         });
       });
@@ -136,14 +140,32 @@ const TodaySchedule: React.FC<TodayScheduleProps> = ({ mode, accountId, groupId,
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         {s.classroom || '—'}
+                        {/* Показываем преподавателя только для студента: рядом с кабинетом через точку, через Fade при раскрытии */}
+                        {mode === 'student' && related.accounts && related.accounts[s.accountId] && (
+                          <Fade in={expandedThis} unmountOnExit>
+                            <span style={{ marginLeft: 8, color: '#888' }}>
+                              •&nbsp;&nbsp;{`${related.accounts[s.accountId].surname} ${related.accounts[s.accountId].name}${related.accounts[s.accountId].patronymic ? ` ${related.accounts[s.accountId].patronymic}` : ''}`}
+                            </span>
+                          </Fade>
+                        )}
                       </Typography>
                     </Box>
                   </Box>
                   <Fade in={expandedThis} unmountOnExit>
                     <Box sx={{ mt: 2 }}>
-                      <Typography variant="body2" color="text.primary">
-                        {s.description || "Описание занятия, преподаватель, тема и т.д."}
-                      </Typography>
+                      {discipline?.description && (
+                        <Typography variant="body2" color="text.secondary">
+                          {discipline.description}
+                        </Typography>
+                      )}
+                      {discipline?.description && s.description && (
+                        <Box sx={{ my: 1, borderBottom: '1px solid #eee' }} />
+                      )}
+                      {s.description && (
+                        <Typography variant="body2" color="text.secondary">
+                          {s.description}
+                        </Typography>
+                      )}
                     </Box>
                   </Fade>
                 </CardContent>

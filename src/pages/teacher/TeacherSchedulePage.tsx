@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import RequireTeacher from "../../components/security/require/RequireTeacher";
 import UserHeader, { useUserHeaderConfig } from "../../components/common/UserHeader";
 import { Box, Typography } from "@mui/material";
+import FullSchedule from "../../components/common/FullSchedule";
 import { getAllSubjectByAccount } from "../../api/schedule/subject";
 import { useAuth } from "../../components/security/AuthProvider";
 
@@ -19,14 +21,14 @@ const TeacherSchedulePage: React.FC = () => {
   }, [account]);
 
   return (
-    <>
-      <UserHeader title="Расписание" accountPath={accountPath} menuLinks={menuLinks} />
-      <Box sx={{ p: { xs: 1, md: 3 }, maxWidth: 900, margin: "0 auto" }}>
-        <Typography variant="h5">Расписание</Typography>
-        {/* Здесь будет отображение расписания */}
-        <pre>{JSON.stringify(subjects, null, 2)}</pre>
+    <RequireTeacher>
+      <Box sx={{ minHeight: '100vh', background: '#f7f8fa', transition: 'background 0.5s', pb: 0 }}>
+        <UserHeader title="Полное расписание" accountPath={accountPath} menuLinks={menuLinks} />
+        <Box sx={{ maxWidth: 1400, margin: "0 auto", pt: 4 }}>
+          <FullSchedule />
+        </Box>
       </Box>
-    </>
+    </RequireTeacher>
   );
 };
 

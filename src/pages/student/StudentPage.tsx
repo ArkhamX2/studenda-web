@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import RequireStudent from "../../components/security/require/RequireStudent";
 import UserHeader, { useUserHeaderConfig } from "../../components/common/UserHeader";
-import { Box, Typography, Paper, Avatar, Button } from "@mui/material";
+import { Box, Typography, Paper, Avatar } from "@mui/material";
 import { useAuth } from "../../components/security/AuthProvider";
 import { getCurrentWeekType } from "../../api/schedule/week-type";
 import { useSettings } from "../../components/SettingsProvider";
-import SchoolIcon from '@mui/icons-material/School';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import TodaySchedule from "../../components/common/TodaySchedule";
 
 const getGreeting = (name: string) => {
@@ -32,35 +31,34 @@ const StudentPage: React.FC = () => {
 
   return (
     <RequireStudent>
-      <UserHeader title="Сегодня" accountPath={accountPath} menuLinks={menuLinks} />
-      <Box sx={{ maxWidth: 600, margin: "0 auto", pt: 4 }}>
-        <Paper elevation={3} sx={{ p: 3, mb: 4, borderRadius: 4, display: 'flex', alignItems: 'center', gap: 2, background: '#fff' }}>
-          <Avatar sx={{ bgcolor: 'primary.main', width: 56, height: 56 }}>
-            <SchoolIcon fontSize="large" sx={{ color: '#fff' }} />
-          </Avatar>
-          <Box>
-            <Typography variant="h5" fontWeight={700} color="text.primary">
-              {getGreeting(account?.name || "Студент")}
-            </Typography>
-            <Typography variant="subtitle1" color="text.secondary">
-              {settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime).toLocaleDateString() : new Date().toLocaleDateString()} • {weekType?.name || '-'} неделя
-            </Typography>
-          </Box>
-        </Paper>
-        {account?.groupId && weekType && (
-          <TodaySchedule
-            mode="student"
-            groupId={account.groupId}
-            weekTypeId={weekType.id}
-            year={settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime).getFullYear() : new Date().getFullYear()}
-            userName={account.name}
-            date={settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime) : new Date()}
-          />
-        )}
-        <Box sx={{ mt: 4, textAlign: 'center' }}>
-          <Link to="/journal">
-            <Button variant="contained">Перейти в общий журнал</Button>
-          </Link>
+      <Box sx={{ minHeight: '100vh', background: '#f7f8fa', transition: 'background 0.5s', pb: 0 }}>
+        <UserHeader title="Сегодня" accountPath={accountPath} menuLinks={menuLinks} />
+        <Box sx={{ maxWidth: 600, margin: "0 auto", pt: 4 }}>
+          {/* Greeting Card */}
+          <Paper elevation={3} sx={{ p: 3, mb: 4, borderRadius: 4, display: 'flex', alignItems: 'center', gap: 2, background: '#fff' }}>
+            <Avatar sx={{ bgcolor: 'primary.main', width: 56, height: 56 }}>
+              <WbSunnyIcon fontSize="large" sx={{ color: '#fff' }} />
+            </Avatar>
+            <Box>
+              <Typography variant="h5" fontWeight={700} color="text.primary">
+                {getGreeting(account?.name || "Студент")}
+              </Typography>
+              <Typography variant="subtitle1" color="text.secondary">
+                {settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime).toLocaleDateString() : new Date().toLocaleDateString()} {weekType?.name ? `• ${weekType.name} неделя` : ''}
+              </Typography>
+            </Box>
+          </Paper>
+          {/* Lessons List */}
+          {account?.groupId && weekType && (
+            <TodaySchedule
+              mode="student"
+              groupId={account.groupId}
+              userName={account.name}
+              weekTypeId={weekType.id}
+              date={settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime) : new Date()}
+              year={settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime).getFullYear() : new Date().getFullYear()}
+            />
+          )}
         </Box>
       </Box>
     </RequireStudent>
