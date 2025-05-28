@@ -1,0 +1,23 @@
+@startuml
+
+' Sequence diagram: пользовательский запрос через инфраструктуру Docker
+
+actor Пользователь
+participant "Веб сервер (proxy)" as Nginx
+participant "Клиент (React)" as Front
+participant "Сервер (ASP.NET Core)" as Back
+participant "Кэш" as Redis
+participant "База данных" as DB
+' Все участники ниже находятся в закрытом контуре Docker
+
+Пользователь -> Nginx : HTTP/HTTPS запрос
+Nginx -> Front : Запрос статики
+Front -> Nginx : API-запрос
+Nginx -> Back : Проксирование API-запроса
+Back -> Redis : Проверка/запись кэша
+Back -> DB : Чтение/запись данных
+Back --> Nginx : Ответ API
+Nginx --> Front : Ответ API
+Front --> Пользователь : Отображение данных
+
+@enduml

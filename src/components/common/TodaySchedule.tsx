@@ -64,7 +64,12 @@ const TodaySchedule: React.FC<TodayScheduleProps> = ({ mode, accountId, groupId,
   }, [mode, accountId, groupId, weekTypeId, year]);
 
   // Определяем текущий день недели и занятия на сегодня
-  const todayDayPositionObj = Object.values(related.dayPositions).find((d: any) => d && typeof d === 'object' && 'index' in d && d.index === date.getDay());
+  // Преобразуем: понедельник = 1, ..., воскресенье = 7
+  const getWeekday = (date: Date) => {
+    const d = date.getDay();
+    return d === 0 ? 7 : d;
+  };
+  const todayDayPositionObj = Object.values(related.dayPositions).find((d: any) => d && typeof d === 'object' && 'index' in d && d.index === getWeekday(date));
   const todayDayPositionId = todayDayPositionObj && typeof todayDayPositionObj === 'object' && 'id' in todayDayPositionObj ? (todayDayPositionObj as any).id : undefined;
   const todaySubjects = todayDayPositionId ? subjects.filter((s: any) => s.dayPositionId === todayDayPositionId) : [];
   // Сортировка занятий по индексу позиции занятия

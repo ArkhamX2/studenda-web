@@ -27,6 +27,7 @@ import { getSubjectByAccount, getSubjectByGroup } from "../../api/schedule/subje
 import { DayPosition, SubjectPosition, Subject, Discipline, SubjectType, WeekType } from "../../types/schedule";
 
 dayjs.extend(weekOfYear);
+dayjs.locale('ru');
 
 function getWeekTypeByNumber(weekTypes: WeekType[], weekNum: number): WeekType | undefined {
   if (!weekTypes.length) return undefined;
@@ -49,7 +50,7 @@ const FullSchedule: React.FC<{ mode: 'teacher' | 'student', accountId?: number, 
   const [weekTypes, setWeekTypes] = useState<WeekType[]>([]);
   const [subjects, setSubjects] = useState<Subject[]>([]);
 
-  const weekNum = baseDate.week();
+  const weekNum = baseDate.week(); // Понедельник - первая неделя
   const year = baseDate.year();
   const weekType = getWeekTypeByNumber(weekTypes, weekNum);
 
@@ -90,6 +91,7 @@ const FullSchedule: React.FC<{ mode: 'teacher' | 'student', accountId?: number, 
             Неделя {baseDate.week()} ({weekType ? weekType.name : '—'})
           </Typography>
           <Typography variant="body2" color="text.secondary">
+            {/* Корректно вычисляем начало и конец недели: понедельник - воскресенье */}
             {baseDate.startOf('week').format('DD.MM.YYYY')} – {baseDate.endOf('week').format('DD.MM.YYYY')}
           </Typography>
         </Box>

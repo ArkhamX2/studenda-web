@@ -1,0 +1,27 @@
+@startuml
+
+' Use Case Diagram for Studenda Web Application
+
+actor Студент
+actor Преподаватель
+actor Администратор
+
+rectangle "Система расписания" {
+    (Авторизация) as Auth
+    (Просмотр расписания) as ViewSchedule
+    (Отметить прогулы) as MarkAbsence
+    (Создать/редактировать расписание) as EditSchedule
+}
+
+Студент --> ViewSchedule
+
+Преподаватель --> ViewSchedule
+Преподаватель --> MarkAbsence
+
+Администратор --> EditSchedule
+
+Студент --> Auth
+Преподаватель --> Auth
+Администратор --> Auth
+
+@enduml
