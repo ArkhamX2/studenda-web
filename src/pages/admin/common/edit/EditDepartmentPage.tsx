@@ -8,6 +8,7 @@ const EditDepartmentPage: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const navigate = useNavigate();
   const [department, setDepartment] = useState<Department>({ id: 0, name: "" });
+  const [errors, setErrors] = useState<{ name?: string }>({});
   const isNew = !id;
 
   useEffect(() => {
@@ -25,6 +26,11 @@ const EditDepartmentPage: React.FC = () => {
   }, [id, isNew]);
 
   const handleSave = () => {
+    const newErrors: { name?: string } = {};
+    if (!department.name.trim()) newErrors.name = "Название обязательно";
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
+
     const saveAction = setDepartmentsApi([department]);
 
     saveAction
@@ -55,6 +61,9 @@ const EditDepartmentPage: React.FC = () => {
         onChange={(e) => handleChange("name", e.target.value)}
         fullWidth
         margin="normal"
+        required
+        error={!!errors.name}
+        helperText={errors.name}
       />
       <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: 2 }}>
         <Button variant="contained" color="primary" onClick={handleSave}>

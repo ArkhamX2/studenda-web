@@ -76,6 +76,13 @@ const AdminLayout: React.FC = () => {
                 <ListItemText primary="Позиции учебного дня" />
               </ListItem>
             </Box>
+            <Divider sx={{ my: 1 }} />
+            {/* Журнал */}
+            <Box component="li" sx={{ p: 0 }}>
+              <ListItem button="true" component={Link as React.ElementType} to="/admin/journal/mark-type">
+                <ListItemText primary="Типы оценивания" />
+              </ListItem>
+            </Box>
           </List>
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>

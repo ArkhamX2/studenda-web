@@ -50,74 +50,77 @@ const UserHeader: React.FC<UserHeaderProps> = ({ title, accountPath, menuLinks }
   }, [menuOpen]);
 
   return (
-    <AppBar position="static" color="default" elevation={1} sx={{ zIndex: 1201 }}>
-      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Typography
-            variant="h6"
-            noWrap
-            component={Link}
-            to="/"
-            sx={{ cursor: 'pointer', color: 'inherit', textDecoration: 'none' }}
+    <>
+      <AppBar position="fixed" color="default" elevation={1} sx={{ zIndex: 1201 }}>
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Typography
+              variant="h6"
+              noWrap
+              component={Link}
+              to="/"
+              sx={{ cursor: 'pointer', color: 'inherit', textDecoration: 'none' }}
+            >
+              {title}
+            </Typography>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <IconButton
+              size="large"
+              edge="end"
+              color="inherit"
+              aria-label="menu"
+              onClick={handleMenu}
+              ref={iconRef}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
+        </Toolbar>
+        {menuOpen && (
+          <Box
+            ref={menuRef}
+            sx={{
+              position: 'absolute',
+              top: '64px',
+              left: 0,
+              width: '100%',
+              bgcolor: 'background.paper',
+              boxShadow: 3,
+              zIndex: 1200,
+              borderBottomLeftRadius: 8,
+              borderBottomRightRadius: 8,
+              overflow: 'hidden',
+              maxHeight: menuVisible ? 500 : 0,
+              opacity: menuVisible ? 1 : 0,
+              transition: 'max-height 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s',
+            }}
           >
-            {title}
-          </Typography>
-        </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <IconButton
-            size="large"
-            edge="end"
-            color="inherit"
-            aria-label="menu"
-            onClick={handleMenu}
-            ref={iconRef}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Box>
-      </Toolbar>
-      {menuOpen && (
-        <Box
-          ref={menuRef}
-          sx={{
-            position: 'absolute',
-            top: '64px',
-            left: 0,
-            width: '100%',
-            bgcolor: 'background.paper',
-            boxShadow: 3,
-            zIndex: 1200,
-            borderBottomLeftRadius: 8,
-            borderBottomRightRadius: 8,
-            overflow: 'hidden',
-            maxHeight: menuVisible ? 500 : 0,
-            opacity: menuVisible ? 1 : 0,
-            transition: 'max-height 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s',
-          }}
-        >
-          <List>
-            {menuLinks.map((item) => (
-              <ListItem key={item.to} disablePadding>
-                <ListItemButton component={Link} to={item.to} onClick={handleClose}>
-                  <ListItemText primary={item.label} />
+            <List>
+              {menuLinks.map((item) => (
+                <ListItem key={item.to} disablePadding>
+                  <ListItemButton component={Link} to={item.to} onClick={handleClose}>
+                    <ListItemText primary={item.label} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+              <Divider />
+              <ListItem disablePadding>
+                <ListItemButton component={Link} to={accountPath} onClick={handleClose}>
+                  <ListItemText primary="Аккаунт" />
                 </ListItemButton>
               </ListItem>
-            ))}
-            <Divider />
-            <ListItem disablePadding>
-              <ListItemButton component={Link} to={accountPath} onClick={handleClose}>
-                <ListItemText primary="Аккаунт" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => { handleClose(); logout(); }}>
-                <ListItemText primary="Выйти" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </Box>
-      )}
-    </AppBar>
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => { handleClose(); logout(); }}>
+                  <ListItemText primary="Выйти" />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </Box>
+        )}
+      </AppBar>
+      <Box sx={{ height: { xs: 56, sm: 64 } }} />
+    </>
   );
 };
 

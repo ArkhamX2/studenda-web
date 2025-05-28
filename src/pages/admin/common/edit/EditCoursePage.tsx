@@ -8,6 +8,7 @@ const EditCoursePage: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const navigate = useNavigate();
   const [course, setCourse] = useState<Course>({ id: 0, name: "", grade: 1 });
+  const [errors, setErrors] = useState<{ name?: string; grade?: string }>({});
   const isNew = !id;
 
   useEffect(() => {
@@ -25,8 +26,13 @@ const EditCoursePage: React.FC = () => {
   }, [id, isNew]);
 
   const handleSave = () => {
-    const saveAction = setCoursesApi([course]);
+    const newErrors: { name?: string; grade?: string } = {};
+    if (!course.name.trim()) newErrors.name = "Название обязательно";
+    if (!course.grade || isNaN(Number(course.grade))) newErrors.grade = "Градация обязательна";
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
 
+    const saveAction = setCoursesApi([course]);
     saveAction
       .then(() => {
         navigateToList();
@@ -56,6 +62,9 @@ const EditCoursePage: React.FC = () => {
         onChange={(e) => handleChange("grade", parseInt(e.target.value, 10))}
         fullWidth
         margin="normal"
+        required
+        error={!!errors.grade}
+        helperText={errors.grade}
       />
       <TextField
         label="Название"
@@ -63,6 +72,9 @@ const EditCoursePage: React.FC = () => {
         onChange={(e) => handleChange("name", e.target.value)}
         fullWidth
         margin="normal"
+        required
+        error={!!errors.name}
+        helperText={errors.name}
       />
       <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: 2 }}>
         <Button variant="contained" color="primary" onClick={handleSave}>

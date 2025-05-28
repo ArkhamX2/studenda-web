@@ -40,7 +40,10 @@ import TeacherSchedulePage from "./pages/teacher/TeacherSchedulePage";
 import StudentSchedulePage from "./pages/student/StudentSchedulePage";
 import StudentDayDetailPage from "./pages/student/StudentDayDetailPage";
 import TeacherDayDetailPage from "./pages/teacher/TeacherDayDetailPage";
-import TeacherJournalSessionPage from "./pages/teacher/TeacherJournalSessionPage";
+import TeacherJournalPage from "./pages/teacher/TeacherJournalPage";
+import StudentJournalPage from "./pages/student/StudentJournalPage";
+import MarkTypeListPage from "./pages/admin/journal/MarkTypeListPage";
+import EditMarkTypePage from "./pages/admin/journal/edit/EditMarkTypePage";
 
 const theme = createTheme({
   palette: {
@@ -100,6 +103,9 @@ const App: React.FC = () => {
                 <Route path="role" element={<RoleListPage />} />
                 <Route path="role/edit" element={<EditRolePage />} />
                 <Route path="role/edit/:id" element={<EditRolePage />} />
+                <Route path="journal/mark-type" element={<MarkTypeListPage />} />
+                <Route path="journal/mark-type/edit" element={<EditMarkTypePage />} />
+                <Route path="journal/mark-type/edit/:id" element={<EditMarkTypePage />} />
               </Route>
               <Route path="/teacher" element={<TeacherPage />} />
               <Route path="/teacher/schedule" element={<TeacherSchedulePage />} />
@@ -110,7 +116,8 @@ const App: React.FC = () => {
               <Route path="/change-password" element={<ChangePasswordPage />} />
               <Route path="/student/schedule/day/:date/:weekTypeId/:dayPositionId/:year" element={<StudentDayDetailPage />} />
               <Route path="/teacher/schedule/day/:date/:weekTypeId/:dayPositionId/:year" element={<TeacherDayDetailPage />} />
-              <Route path="/teacher/journal/:sessionId" element={<TeacherJournalSessionPage />} />
+              <Route path="/teacher/journal/:subjectId/:date" element={<TeacherJournalPage />} />
+              <Route path="/student/journal/:subjectId/:date" element={<StudentJournalPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Router>

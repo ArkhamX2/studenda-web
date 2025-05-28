@@ -7,6 +7,7 @@ import { getCurrentWeekType } from "../../api/schedule/week-type";
 import { useSettings } from "../../components/SettingsProvider";
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import TodaySchedule from "../../components/common/TodaySchedule";
+import dayjs from "dayjs";
 
 const getGreeting = (name: string) => {
   const hour = new Date().getHours();
@@ -44,7 +45,12 @@ const TeacherPage: React.FC = () => {
                 {getGreeting(account?.name || "Преподаватель")}
               </Typography>
               <Typography variant="subtitle1" color="text.secondary">
-                {settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime).toLocaleDateString() : new Date().toLocaleDateString()} {weekType?.name ? `• ${weekType.name} неделя` : ''}
+                {(() => {
+                  const date = settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime) : new Date();
+                  const prettyDate = dayjs(date).format('dddd, D MMMM');
+                  const prettyDateCap = prettyDate.charAt(0).toUpperCase() + prettyDate.slice(1);
+                  return `${prettyDateCap}${weekType?.name ? ` • ${weekType.name} неделя` : ''}`;
+                })()}
               </Typography>
             </Box>
           </Paper>
@@ -56,7 +62,7 @@ const TeacherPage: React.FC = () => {
               userName={account.name}
               weekTypeId={weekType.id}
               date={settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime) : new Date()}
-              year={settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime).getFullYear() : new Date().getFullYear()}
+              year={(settings?.coordinatedUniversalTime ? new Date(settings.coordinatedUniversalTime) : new Date()).getFullYear()}
             />
           )}
         </Box>

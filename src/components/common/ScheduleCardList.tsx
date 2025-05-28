@@ -23,7 +23,7 @@ const ScheduleCardList: React.FC<ScheduleCardListProps> = ({
   date,
   navigate,
 }) => (
-  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
     {subjects.length === 0 ? (
       <Typography color="text.secondary">На этот день занятий нет</Typography>
     ) : (
@@ -100,7 +100,7 @@ const ScheduleCardList: React.FC<ScheduleCardListProps> = ({
                     {expanded === s.id ? "Свернуть" : "Подробнее"}
                   </Button>
                 )}
-                {mode === "teacher" && expandedThis && navigate && (
+                {expandedThis && navigate && (
                   <Button
                     size="small"
                     variant="contained"
@@ -109,7 +109,11 @@ const ScheduleCardList: React.FC<ScheduleCardListProps> = ({
                     onClick={e => {
                       e.stopPropagation();
                       const dateStr = date.toISOString().slice(0, 10);
-                      navigate(`/teacher/journal/${s.id}?date=${dateStr}`);
+                      if (mode === "teacher") {
+                        navigate(`/teacher/journal/${s.id}/${dateStr}`);
+                      } else {
+                        navigate(`/student/journal/${s.id}/${dateStr}`);
+                      }
                     }}
                   >
                     Журнал

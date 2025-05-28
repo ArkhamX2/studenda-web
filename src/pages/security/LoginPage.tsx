@@ -46,7 +46,7 @@ const LoginPage: React.FC = () => {
     <Container maxWidth="xs">
       <Box sx={{ mt: 8 }}>
         <Typography variant="h4" gutterBottom>
-          Login
+          Вход
         </Typography>
         <form onSubmit={handleSubmit}>
           <TextField
@@ -59,7 +59,7 @@ const LoginPage: React.FC = () => {
             required
           />
           <TextField
-            label="Password"
+            label="Пароль"
             type="password"
             fullWidth
             margin="normal"
@@ -67,9 +67,9 @@ const LoginPage: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          {error && <Typography color="error">{error}</Typography>}
+          {error && <Typography color="error">{error === "Login failed" ? "Неверный email или пароль" : "Произошла ошибка"}</Typography>}
           <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
-            Login
+            Войти
           </Button>
         </form>
       </Box>

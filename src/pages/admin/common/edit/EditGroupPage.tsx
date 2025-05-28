@@ -10,6 +10,7 @@ const EditGroupPage: React.FC = () => {
   const [group, setGroup] = useState<Group>({ id: 0, name: "", courseId: 0, departmentId: 0 });
   const [courses, setCourses] = useState<Course[]>([]);
   const [departments, setDepartments] = useState<Department[]>([]);
+  const [errors, setErrors] = useState<{ name?: string; courseId?: string; departmentId?: string }>({});
   const isNew = !id;
 
   useEffect(() => {
@@ -35,8 +36,14 @@ const EditGroupPage: React.FC = () => {
   }, [id, isNew]);
 
   const handleSave = () => {
-    const saveAction = setGroupsApi([group]);
+    const newErrors: { name?: string; courseId?: string; departmentId?: string } = {};
+    if (!group.name.trim()) newErrors.name = "Название обязательно";
+    if (!group.courseId) newErrors.courseId = "Курс обязателен";
+    if (!group.departmentId) newErrors.departmentId = "Факультет обязателен";
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
 
+    const saveAction = setGroupsApi([group]);
     saveAction
       .then(() => {
         navigateToList();
@@ -66,6 +73,9 @@ const EditGroupPage: React.FC = () => {
         onChange={(e) => handleChange("courseId", e.target.value)}
         fullWidth
         margin="normal"
+        required
+        error={!!errors.courseId}
+        helperText={errors.courseId}
       >
         {courses.map((course) => (
           <MenuItem key={course.id} value={course.id}>
@@ -80,6 +90,9 @@ const EditGroupPage: React.FC = () => {
         onChange={(e) => handleChange("departmentId", e.target.value)}
         fullWidth
         margin="normal"
+        required
+        error={!!errors.departmentId}
+        helperText={errors.departmentId}
       >
         {departments.map((department) => (
           <MenuItem key={department.id} value={department.id}>
@@ -93,6 +106,9 @@ const EditGroupPage: React.FC = () => {
         onChange={(e) => handleChange("name", e.target.value)}
         fullWidth
         margin="normal"
+        required
+        error={!!errors.name}
+        helperText={errors.name}
       />
       <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: 2 }}>
         <Button variant="contained" color="primary" onClick={handleSave}>
