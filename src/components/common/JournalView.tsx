@@ -13,6 +13,7 @@ import { getGroups } from "../../api/common";
 import { getDisciplines } from "../../api/schedule/discipline";
 import { getSubjectTypes } from "../../api/schedule/subject-type";
 import { getSubjectPositions } from "../../api/schedule/subject-position";
+import TaskList from "./TaskList";
 
 interface JournalViewProps {
   subjectId: string;
@@ -208,6 +209,15 @@ const JournalView: React.FC<JournalViewProps> = ({ subjectId, date, mode }) => {
             Дата: {formatDate(subject?.startedAt || date)}
           </Typography>
         </Paper>
+        <TaskList
+          date={date}
+          mode={mode}
+          issuerAccountId={teacher?.id || 0}
+          groupId={group?.id || 0}
+          disciplineId={disciplines[0]?.id || 0}
+          subjectTypeId={subjectType?.id || 0}
+          students={students.map(s => ({ id: s.id, surname: s.surname || s.lastName, name: s.name || s.firstName, patronymic: s.patronymic }))}
+        />
         {/* Карточка посещаемости */}
         <Paper sx={{ p: 2, borderRadius: 3 }}>
           <Typography variant="h6" sx={{ mb: 2 }}>Посещение</Typography>

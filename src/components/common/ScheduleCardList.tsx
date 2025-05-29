@@ -73,6 +73,13 @@ const ScheduleCardList: React.FC<ScheduleCardListProps> = ({
                           </span>
                         </Fade>
                       )}
+                      {mode === 'teacher' && related.groups && related.groups[s.groupId] && (
+                        <Fade in={expandedThis} unmountOnExit>
+                          <span style={{ marginLeft: 8, color: '#888' }}>
+                            •&nbsp;&nbsp;{related.groups[s.groupId].name}
+                          </span>
+                        </Fade>
+                      )}
                     </Typography>
                   </Box>
                 </Box>

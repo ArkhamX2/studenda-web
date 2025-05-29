@@ -9,8 +9,8 @@ export interface Task extends Identifiable {
   mark: number | null;
   name: string;
   description: string | null;
-  startedAt: string | null;
-  endedAt: string | null;
+  startedAt: string;
+  endedAt: string;
 }
 
 export interface Session extends Identifiable {

@@ -6,6 +6,7 @@ import { getSubjectPositions } from "../../api/schedule/subject-position";
 import { getDayPositions } from "../../api/schedule/dayPosition";
 import { getSubjectTypes } from "../../api/schedule/subject-type";
 import { getAccounts } from '../../api/security/account';
+import { getGroups } from '../../api/common';
 import { useNavigate } from "react-router-dom";
 import ScheduleCardList from "./ScheduleCardList";
 
@@ -21,7 +22,7 @@ interface DayScheduleProps {
 
 const DaySchedule: React.FC<DayScheduleProps> = ({ mode, accountId, groupId, academicYear, weekTypeId, date, dayPositionId }) => {
   const [subjects, setSubjects] = useState<any[]>([]);
-  const [related, setRelated] = useState<any>({ disciplines: {}, subjectPositions: {}, dayPositions: {}, subjectTypes: {}, accounts: {} });
+  const [related, setRelated] = useState<any>({ disciplines: {}, subjectPositions: {}, dayPositions: {}, subjectTypes: {}, accounts: {}, groups: {} });
   const [expanded, setExpanded] = useState<number | null>(null);
   const navigate = useNavigate();
 
@@ -36,13 +37,15 @@ const DaySchedule: React.FC<DayScheduleProps> = ({ mode, accountId, groupId, aca
       const subjectPositionIds = Array.from(new Set(subjects.map((s: any) => s.subjectPositionId)));
       const dayPositionIds = Array.from(new Set(subjects.map((s: any) => s.dayPositionId)));
       const subjectTypeIds = Array.from(new Set(subjects.map((s: any) => s.subjectTypeId)));
+      const groupIds = Array.from(new Set(subjects.map((s: any) => s.groupId)));
       const accountIds = mode === 'student' ? Array.from(new Set(subjects.map((s: any) => s.accountId))) : [];
-      const [disc, pos, day, type, acc] = await Promise.all([
+      const [disc, pos, day, type, acc, groupsResp] = await Promise.all([
         getDisciplines(disciplineIds),
         getSubjectPositions(subjectPositionIds),
         getDayPositions(dayPositionIds),
         getSubjectTypes(subjectTypeIds),
-        accountIds.length > 0 ? getAccounts(accountIds) : Promise.resolve({ data: [] })
+        accountIds.length > 0 ? getAccounts(accountIds) : Promise.resolve({ data: [] }),
+        groupIds.length > 0 ? getGroups(groupIds) : Promise.resolve({ data: [] })
       ]);
       setRelated({
         disciplines: (disc.data || []).reduce((acc: any, d: any) => { acc[d.id] = d; return acc; }, {}),
@@ -50,6 +53,7 @@ const DaySchedule: React.FC<DayScheduleProps> = ({ mode, accountId, groupId, aca
         dayPositions: (day.data || []).reduce((acc: any, d: any) => { acc[d.id] = d; return acc; }, {}),
         subjectTypes: (type.data || []).reduce((acc: any, d: any) => { acc[d.id] = d; return acc; }, {}),
         accounts: (acc.data || []).reduce((acc: any, a: any) => { acc[a.id] = a; return acc; }, {}),
+        groups: (groupsResp.data || []).reduce((acc: any, g: any) => { acc[g.id] = g; return acc; }, {})
       });
     };
     fetchData();

@@ -7,6 +7,7 @@ import { getDayPositions } from "../../api/schedule/dayPosition";
 import { getSubjectTypes } from "../../api/schedule/subject-type";
 import { useNavigate } from "react-router-dom";
 import { getAccounts } from '../../api/security/account';
+import { getGroups } from '../../api/common';
 import ScheduleCardList from "./ScheduleCardList";
 
 interface TodayScheduleProps {
@@ -44,19 +45,22 @@ const TodaySchedule: React.FC<TodayScheduleProps> = ({ mode, accountId, groupId,
         const dayPositionIds = Array.from(new Set(subjects.map((s: any) => s.dayPositionId)));
         const subjectTypeIds = Array.from(new Set(subjects.map((s: any) => s.subjectTypeId)));
         const accountIds = mode === 'student' ? Array.from(new Set(subjects.map((s: any) => s.accountId))) : [];
+        const groupIds = Array.from(new Set(subjects.map((s: any) => s.groupId)));
         Promise.all([
           getDisciplines(disciplineIds),
           getSubjectPositions(subjectPositionIds),
           getDayPositions(dayPositionIds),
           getSubjectTypes(subjectTypeIds),
-          accountIds.length > 0 ? getAccounts(accountIds) : Promise.resolve({ data: [] })
-        ]).then(([disc, pos, day, type, acc]) => {
+          accountIds.length > 0 ? getAccounts(accountIds) : Promise.resolve({ data: [] }),
+          groupIds.length > 0 ? getGroups(groupIds) : Promise.resolve({ data: [] })
+        ]).then(([disc, pos, day, type, acc, groupsResp]) => {
           setRelated({
             disciplines: (disc.data || []).reduce((acc: any, d: any) => { acc[d.id] = d; return acc; }, {}),
             subjectPositions: (pos.data || []).reduce((acc: any, d: any) => { acc[d.id] = d; return acc; }, {}),
             dayPositions: (day.data || []).reduce((acc: any, d: any) => { acc[d.id] = d; return acc; }, {}),
             subjectTypes: (type.data || []).reduce((acc: any, d: any) => { acc[d.id] = d; return acc; }, {}),
             accounts: (acc.data || []).reduce((acc: any, a: any) => { acc[a.id] = a; return acc; }, {}),
+            groups: (groupsResp.data || []).reduce((acc: any, g: any) => { acc[g.id] = g; return acc; }, {})
           });
         });
       });
